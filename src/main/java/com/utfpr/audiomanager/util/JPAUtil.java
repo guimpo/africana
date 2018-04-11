@@ -26,7 +26,8 @@ public class JPAUtil {
             em = factory.createEntityManager();
         }
         catch (Exception e) {
-                        
+            e.printStackTrace();
+            if(em == null) System.err.println("erro no jpautil");       
         }      
         return em;
     }
