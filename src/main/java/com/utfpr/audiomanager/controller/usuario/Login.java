@@ -9,6 +9,7 @@ import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author josevictor
+ * @author paulo
  */
-@WebServlet(name = "CadastroUsuario", urlPatterns = {"/usuario/cadastro"})
-public class CadastroUsuario extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,27 +29,23 @@ public class CadastroUsuario extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CadastroUsuario</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CadastroUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            
-        }
+        getServletContext()
+                    .getRequestDispatcher("/login.jsp")
+                    .forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        String email = (String) request.getAttribute("email");
+        String senha = (String) request.getAttribute("senha");
+        
+        List<Usuario> l = new UsuarioDao().getList();
+        for(Usuario u : l) {
+            
+        }
+        
+        
     }
 }

@@ -5,23 +5,24 @@
  */
 package com.utfpr.audiomanager.dao;
 
-import com.utfpr.audiomanager.util.HibernateUtil;
+import com.utfpr.audiomanager.util.JPAUtil;
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Inject;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.validation.Valid;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
  * @author josevictor
+ * @param <T>
+ * @param <I>
  */
 public class GenericDao<T, I extends Serializable> {
     
-    @Inject
-    private Session session;
+    private EntityManager em;
+    private EntityTransaction transaction;
     
     private Class<T> persistedClass;
     
@@ -30,17 +31,16 @@ public class GenericDao<T, I extends Serializable> {
     
     protected GenericDao(Class<T> persistedClass) {
         this();
-        this.session = HibernateUtil.getSessionFactory().openSession();
+        this.em = JPAUtil.getEntityManager();
+        this.transaction = em.getTransaction();
         this.persistedClass = persistedClass;
     }
     
     public T salvar(@Valid T entity) {
-        Transaction transaction = null;
         try {
-            transaction = session.getTransaction();
             transaction.begin();
-            session.save(entity);
-            session.flush();
+            em.persist(entity);
+            em.flush();
             transaction.commit();     
         } catch (Exception e) {
             if (transaction != null) {
@@ -48,20 +48,19 @@ public class GenericDao<T, I extends Serializable> {
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                this.session.close();
+            if (em != null) {
+                this.em.close();
             }
         }
         return entity;
     }
     
     public T atualizar(@Valid T entity) {
-        Transaction transaction = null;
         try {
-            transaction = session.getTransaction();
+            transaction = em.getTransaction();
             transaction.begin();
-            session.update(entity);
-            session.flush();
+            em.merge(entity);
+            em.flush();
             transaction.commit();         
         } catch (Exception e) {
             if (transaction != null) {
@@ -69,8 +68,8 @@ public class GenericDao<T, I extends Serializable> {
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
+            if (em != null) {
+                em.close();
             }
         }
         return entity;
@@ -78,13 +77,12 @@ public class GenericDao<T, I extends Serializable> {
 
     public T remover(I id) {
         T entity = null;
-        Transaction transaction = null;
         try {
-            transaction = session.getTransaction();
+            transaction = em.getTransaction();
             entity = encontrar(id);
             transaction.begin();
-            session.delete(entity);
-            session.flush();
+            em.remove(entity);
+            em.flush();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -92,39 +90,39 @@ public class GenericDao<T, I extends Serializable> {
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
+            if (em != null) {
+                em.close();
             }
         }
         return entity;
     }
     
     public List<T> getList() {
-        Criteria criteria = null;
+        List<T> lista = null;
+        
         try {
-            criteria = session.createCriteria(persistedClass);            
+            CriteriaQuery<T> query = em.getCriteriaBuilder().createQuery(persistedClass);
+            query.select(query.from(persistedClass));
+            lista = em.createQuery(query).getResultList(); 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
+            if (em != null) {
+                em.close();
             }
         }
-        if (criteria != null) {
-            return criteria.list();
-        }
-        return null;
+        return lista;
     }
     
     public T encontrar(I id) {
         T entity = null;
         try {
-            entity = (T) session.get(persistedClass, id);
+            entity = (T) em.find(persistedClass, id);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
+            if (em != null) {
+                em.close();
             }
         }
         return entity;

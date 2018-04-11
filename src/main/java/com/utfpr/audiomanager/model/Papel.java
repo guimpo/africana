@@ -6,6 +6,7 @@
 package com.utfpr.audiomanager.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,18 +14,18 @@ import javax.persistence.Id;
 
 /**
  *
- * @author josevictor
+ * @author paulo
  */
 @Entity
-public class Usuario implements Serializable {
-
+public class Papel implements Serializable {
+    
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
     private String email;
-    private String senha;
+    private String papel;
 
     public Long getId() {
         return id;
@@ -32,14 +33,6 @@ public class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getEmail() {
@@ -50,31 +43,37 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPapel() {
+        return papel;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPapel(String papel) {
+        this.papel = papel;
     }
 
-    
-    
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 41 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Usuario)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Papel other = (Papel) obj;
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
             return false;
         }
         return true;
@@ -82,7 +81,8 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.utfpr.audiomanager.model.Usuario[ id=" + id + " ]";
+        return "com.utfpr.audiomanager.model.Papel[ id=" + id + " ]";
     }
+    
     
 }
