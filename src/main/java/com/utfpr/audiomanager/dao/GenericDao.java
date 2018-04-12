@@ -102,16 +102,16 @@ public class GenericDao<T, I extends Serializable> {
     public List<T> getList() {
         Criteria criteria = null;
         try {
-            criteria = session.createCriteria(persistedClass);            
+            criteria = session.createCriteria(persistedClass);
+            if (criteria != null) {
+                return criteria.list();
+            }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e);
         } finally {
             if (session != null) {
                 session.close();
             }
-        }
-        if (criteria != null) {
-            return criteria.list();
         }
         return null;
     }
