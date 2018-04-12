@@ -6,6 +6,7 @@
 package com.utfpr.audiomanager.model;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,8 +23,12 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private String nome;
+    
+    @Column(unique=true)
     private String email;
+    
     private String senha;
 
     public Long getId() {
@@ -38,7 +43,10 @@ public class Usuario implements Serializable {
         return nome;
     }
 
-    public void setNome(String nome) {
+    public void setNome(String nome) throws Exception {
+        if(nome.equalsIgnoreCase("")) {
+            throw new Exception("nome em branco");
+        }
         this.nome = nome;
     }
 
@@ -46,7 +54,10 @@ public class Usuario implements Serializable {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws Exception {
+        if(email.equalsIgnoreCase("")) {
+            throw new Exception("email em branco");
+        }
         this.email = email;
     }
 
@@ -54,7 +65,10 @@ public class Usuario implements Serializable {
         return senha;
     }
 
-    public void setSenha(String senha) {
+    public void setSenha(String senha) throws Exception {
+        if(senha.equalsIgnoreCase("")) {
+            throw new Exception("senha em branco");
+        }
         this.senha = senha;
     }
 

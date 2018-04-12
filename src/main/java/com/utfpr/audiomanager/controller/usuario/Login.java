@@ -17,17 +17,18 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author josevictor
+ * @author paulo
  */
-@WebServlet(name = "CadastroUsuario", urlPatterns = {"/usuario/cadastro"})
-public class CadastroUsuario extends HttpServlet {
-
+@WebServlet(name = "Login", urlPatterns = {"/login"})
+public class Login extends HttpServlet {
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         getServletContext()
-                .getRequestDispatcher("/cadastroUsuario.jsp")
+                .getRequestDispatcher("/login.jsp")
                 .forward(request, response);
     }
 
@@ -35,31 +36,27 @@ public class CadastroUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String nome = (String) request.getParameter("nome");
+        response.setContentType("text/plain;charset=UTF-8");
+        
         String email = (String) request.getParameter("email");
         String senha = (String) request.getParameter("senha");
         
         Usuario u = new Usuario();
         try {
-            u.setNome(nome);
             u.setEmail(email);
             u.setSenha(senha);
             
             List<Usuario> l = new UsuarioDao().getList();
             // garantir que tabela usuário sempre tenha um usuário
             for(Usuario uu : l) {
-                if(uu.getEmail() != null && uu.getEmail().equalsIgnoreCase(email)) {
-                    response.setContentType("text/plain;charset=UTF-8");
-                    response.getWriter().write("email já cadastrado");
+                if(uu.getEmail().equalsIgnoreCase(email) && uu.getSenha().equalsIgnoreCase(u.getSenha())) {                   
+                    response.getWriter().write("logado");
                     return;
                 }
             }
-            new UsuarioDao().salvar(u);
-            response.setContentType("text/plain;charset=UTF-8");
-            response.getWriter().write("cadastro com sucesso");
+            response.getWriter().write("email ou senha inválidos");
         } catch(Exception e) {
-            response.setContentType("text/plain;charset=UTF-8");
             response.getWriter().write(e.getMessage());
-        }    
+        }
     }
 }
