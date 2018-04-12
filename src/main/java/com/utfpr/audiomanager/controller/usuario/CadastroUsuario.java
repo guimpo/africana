@@ -40,15 +40,13 @@ public class CadastroUsuario extends HttpServlet {
         String senha = (String) request.getParameter("senha");
         
         Usuario u = new Usuario();
-        u.setNome(nome);
-        u.setEmail(email);
-        u.setSenha(senha);
-        
-        List<Usuario> l = new UsuarioDao().getList();
-        // garantir que tabela usuário sempre tenha um usuário
-        if(l == null) {
-            System.out.println("nulo");
-        } else {
+        try {
+            u.setNome(nome);
+            u.setEmail(email);
+            u.setSenha(senha);
+            
+            List<Usuario> l = new UsuarioDao().getList();
+            // garantir que tabela usuário sempre tenha um usuário
             for(Usuario uu : l) {
                 if(uu.getEmail() != null && uu.getEmail().equalsIgnoreCase(email)) {
                     response.setContentType("text/plain;charset=UTF-8");
@@ -59,6 +57,9 @@ public class CadastroUsuario extends HttpServlet {
             new UsuarioDao().salvar(u);
             response.setContentType("text/plain;charset=UTF-8");
             response.getWriter().write("cadastro com sucesso");
+        } catch(Exception e) {
+            response.setContentType("text/plain;charset=UTF-8");
+            response.getWriter().write(e.getMessage());
         }    
     }
 }
