@@ -6,6 +6,8 @@
 package com.utfpr.audiomanager.dao;
 
 import com.utfpr.audiomanager.model.Usuario;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 
 /**
  *
@@ -15,5 +17,17 @@ public class UsuarioDao extends GenericDao<Usuario, Long> {
     
     public UsuarioDao() {
         super(Usuario.class);
+    }
+    
+    public Usuario getUsuarioByEmail(String email) {
+        Usuario user = new Usuario();
+        Usuario result = null;
+        try {
+            user.setEmail(email);
+            result = findByObject(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

@@ -7,6 +7,7 @@ package com.utfpr.audiomanager.controller.usuario;
 
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
+import com.utfpr.audiomanager.util.Hashing;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -41,20 +42,21 @@ public class Login extends HttpServlet {
         String email = (String) request.getParameter("email");
         String senha = (String) request.getParameter("senha");
         
-        Usuario u = new Usuario();
         try {
-            u.setEmail(email);
-            u.setSenha(senha);
+            Usuario resultUsuario = new UsuarioDao().getUsuarioByEmail(email);
             
-            List<Usuario> l = new UsuarioDao().getList();
-            // garantir que tabela usuário sempre tenha um usuário
-            for(Usuario uu : l) {
-                if(uu.getEmail().equalsIgnoreCase(email) && uu.getSenha().equalsIgnoreCase(u.getSenha())) {                   
-                    response.getWriter().write("logado");
-                    return;
-                }
+            if (resultUsuario == null) {
+                throw new Exception("email ou senha inválidos");
             }
-            response.getWriter().write("email ou senha inválidos");
+            
+            boolean isSenhaValid = Hashing.validateHashedPassword(senha, resultUsuario.getSenha());
+            
+            if (isSenhaValid) {
+                response.getWriter().write("logado");
+                return;
+            } else {
+                throw new Exception("email ou senha inválidos");
+            }
         } catch(Exception e) {
             response.getWriter().write(e.getMessage());
         }

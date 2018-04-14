@@ -13,6 +13,8 @@ import javax.validation.Valid;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Example;
+import org.hibernate.criterion.MatchMode;
 
 /**
  *
@@ -128,5 +130,11 @@ public class GenericDao<T, I extends Serializable> {
             }
         }
         return entity;
+    }
+
+    public T findByObject(@Valid T entity) {
+        return (T) this.session.createCriteria(persistedClass)
+                .add(Example.create(entity).ignoreCase().enableLike(MatchMode.ANYWHERE))
+                .uniqueResult();
     }
 }
