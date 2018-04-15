@@ -12,15 +12,17 @@ import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author paulo
  */
-@WebServlet(name = "Login", urlPatterns = {"/login"})
+@WebServlet(name = "Login", urlPatterns = {"/usuario/entrar"})
 public class Login extends HttpServlet {
     
     @Override
@@ -52,8 +54,16 @@ public class Login extends HttpServlet {
             boolean isSenhaValid = Hashing.validateHashedPassword(senha, resultUsuario.getSenha());
             
             if (isSenhaValid) {
-                response.getWriter().write("logado");
-                return;
+                HttpSession oldSession = request.getSession(false);
+                if (oldSession != null) {
+                    oldSession.invalidate();
+                }
+                HttpSession newSession = request.getSession(true);
+                newSession.setMaxInactiveInterval(5*60);
+                newSession.setAttribute("user", resultUsuario);
+                Cookie message = new Cookie("message", "Welcome");
+                response.addCookie(message);
+                response.sendRedirect("../audio/cadastro");
             } else {
                 throw new Exception("email ou senha inválidos");
             }

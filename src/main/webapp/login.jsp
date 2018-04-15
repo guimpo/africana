@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Página de Login</h1>
-        <form action="login" method='POST'>
+        <form action="entrar" method='POST'>
            <label for="email">Email</label>
            <input type="text" name="email" id="email" value="email"><br>
            <label for="senha">Senha</label>
