@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -24,6 +25,8 @@ public class Audio implements Serializable {
     private Long id;
     private String titulo;
     private String caminho;
+    @ManyToOne
+    private Usuario usuario;
 
     public Long getId() {
         return id;
@@ -37,7 +40,13 @@ public class Audio implements Serializable {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
+    public void setTitulo(String titulo) throws Exception {
+        if (titulo == null) {
+            throw new Exception("Titulo nao pode ser vazio");
+        }
+        if (titulo.equals("")) {
+            throw new Exception("Titulo nao pode ser vazio");
+        }
         this.titulo = titulo;
     }
 
@@ -45,10 +54,24 @@ public class Audio implements Serializable {
         return caminho;
     }
 
-    public void setCaminho(String caminho) {
+    public void setCaminho(String caminho) throws Exception {
+        if (caminho.equals("")) {
+            throw new Exception("Caminho nao pode ser vazio");
+        }
         this.caminho = caminho;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) throws Exception {
+        if (usuario == null) {
+            throw new Exception("Especifique o usuario");
+        }
+        this.usuario = usuario;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -7,7 +7,7 @@ package com.utfpr.audiomanager.controller.usuario;
 
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
-import com.utfpr.audiomanager.util.Hashing;
+import com.utfpr.audiomanager.util.HashingUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -51,7 +51,7 @@ public class Login extends HttpServlet {
                 throw new Exception("email ou senha inválidos");
             }
             
-            boolean isSenhaValid = Hashing.validateHashedPassword(senha, resultUsuario.getSenha());
+            boolean isSenhaValid = HashingUtil.validateHashedPassword(senha, resultUsuario.getSenha());
             
             if (isSenhaValid) {
                 HttpSession oldSession = request.getSession(false);

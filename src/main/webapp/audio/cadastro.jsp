@@ -13,13 +13,20 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Bem vindo ao cadastro do audio!</h1>
+        <h1>Cadastro do audio!</h1>
         <%
             Usuario user = (Usuario) request.getSession(false).getAttribute("user");
         %>
         <%= user %>
-        <form action="cadastro">
-            <input type="text" name="titulo"/>
+        <form method="POST" action="cadastro" enctype="multipart/form-data">
+            <div>
+                <label for="titulo">Titulo do audio: </label>
+                <input type="text" name="titulo"/>
+            </div>
+            <div>
+                <label for="arquivo">Arquivo de audio: </label>
+                <input type="file" name="arquivo"/>
+            </div>
             <input type="submit" value="Enviar"/>
         </form>
     </body>

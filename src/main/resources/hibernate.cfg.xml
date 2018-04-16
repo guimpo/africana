@@ -48,5 +48,6 @@ Contributor(s):
     <property name="hibernate.connection.password"></property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="com.utfpr.audiomanager.model.Usuario"/>
+    <mapping class="com.utfpr.audiomanager.model.Audio"/>
   </session-factory>
 </hibernate-configuration>

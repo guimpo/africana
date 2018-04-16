@@ -13,7 +13,7 @@ import org.mindrot.jbcrypt.BCrypt;
  *
  * @author josevictor
  */
-public class Hashing {
+public class HashingUtil {
     
     public static String generateHashedPassword(String password) {
         String generaSecuredPassword = BCrypt.hashpw(password, BCrypt.gensalt());

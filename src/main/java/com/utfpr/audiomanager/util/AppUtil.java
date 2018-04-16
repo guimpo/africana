@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.audiomanager.dao;
+package com.utfpr.audiomanager.util;
 
-import com.utfpr.audiomanager.model.Audio;
-import java.io.Serializable;
+import java.util.Base64;
 
 /**
  *
  * @author josevictor
  */
-public class AudioDao extends GenericDao<Audio, Long>{
+public class AppUtil {
     
-    public AudioDao() {
-        super(Audio.class);
-    }    
+    public static String encodeString(String value)
+    {
+        return Base64.getUrlEncoder().encodeToString(value.getBytes());
+    }
 }

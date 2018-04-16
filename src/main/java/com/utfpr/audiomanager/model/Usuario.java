@@ -5,7 +5,7 @@
  */
 package com.utfpr.audiomanager.model;
 
-import com.utfpr.audiomanager.util.Hashing;
+import com.utfpr.audiomanager.util.HashingUtil;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -72,7 +72,7 @@ public class Usuario implements Serializable {
         } else if (senha.length() <= 6) {
             throw new Exception("senha muito pequena");
         }
-        String hashedPass = Hashing.generateHashedPassword(senha);
+        String hashedPass = HashingUtil.generateHashedPassword(senha);
         if (hashedPass == null) {
             throw new Exception("erro ao salvar senha");
         }
@@ -80,7 +80,7 @@ public class Usuario implements Serializable {
     }
 
     public boolean isSenhaValid(String matchSenha) {
-        return Hashing.validateHashedPassword(matchSenha, this.senha);
+        return HashingUtil.validateHashedPassword(matchSenha, this.senha);
     }
     
     @Override

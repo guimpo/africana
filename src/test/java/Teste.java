@@ -1,6 +1,7 @@
 
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
+import com.utfpr.audiomanager.util.HorarioUtil;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,8 +16,6 @@ import com.utfpr.audiomanager.model.Usuario;
 public class Teste {
     
     public static void main(String[] args) {
-        UsuarioDao usuarioDao = new UsuarioDao();
-        Usuario result = usuarioDao.getUsuarioByEmail("testando@testando.com");
-        System.out.println(result);
+        System.out.println(HorarioUtil.getCurrentDateString("MMddyyyyHHmmss"));
     }
 }
