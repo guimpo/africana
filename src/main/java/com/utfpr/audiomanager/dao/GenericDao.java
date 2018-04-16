@@ -23,7 +23,7 @@ import org.hibernate.criterion.MatchMode;
 public class GenericDao<T, I extends Serializable> {
     
     @Inject
-    private Session session;
+    public Session session;
     
     private Class<T> persistedClass;
     

@@ -48,7 +48,7 @@ public class FiltroUsuarioLogado implements Filter {
             chain.doFilter(request, response);
         } else {
             this.context.log("Unauthorized access request");
-            res.sendRedirect(req.getContextPath() + "/audio/cadastro");
+            res.sendRedirect(req.getContextPath() + "/audio/lista");
         }
     }
 

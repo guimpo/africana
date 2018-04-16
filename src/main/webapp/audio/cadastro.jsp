@@ -13,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <a href="../usuario/sair">Deslogar</a>
         <h1>Cadastro do audio!</h1>
         <%
             Usuario user = (Usuario) request.getSession(false).getAttribute("user");

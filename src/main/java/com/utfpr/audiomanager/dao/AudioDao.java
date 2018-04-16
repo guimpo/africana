@@ -6,7 +6,9 @@
 package com.utfpr.audiomanager.dao;
 
 import com.utfpr.audiomanager.model.Audio;
-import java.io.Serializable;
+import com.utfpr.audiomanager.model.Usuario;
+import java.util.List;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -16,5 +18,20 @@ public class AudioDao extends GenericDao<Audio, Long>{
     
     public AudioDao() {
         super(Audio.class);
-    }    
+    }
+    
+    public List<Audio> getAudiosByUsuario(Usuario user) {
+        List audios = session.createCriteria(Audio.class)
+                .add(Restrictions.eq("usuario", user))
+                .list();
+        return audios;
+    }
+    
+    public List<Audio> getAudiosByUsuarioAndTitulo(Usuario user, String titulo) {
+        List audios = session.createCriteria(Audio.class)
+                .add(Restrictions.eq("usuario", user))
+                .add(Restrictions.like("titulo", "%" + titulo + "%"))
+                .list();
+        return audios;
+    }
 }

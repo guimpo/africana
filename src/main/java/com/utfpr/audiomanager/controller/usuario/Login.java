@@ -63,7 +63,7 @@ public class Login extends HttpServlet {
                 newSession.setAttribute("user", resultUsuario);
                 Cookie message = new Cookie("message", "Welcome");
                 response.addCookie(message);
-                response.sendRedirect("../audio/cadastro");
+                response.sendRedirect("../audio/lista");
             } else {
                 throw new Exception("email ou senha inválidos");
             }
