@@ -55,11 +55,9 @@ public class CadastroUsuario extends HttpServlet {
                 }
             }
             new UsuarioDao().salvar(u);
-            response.setContentType("text/plain;charset=UTF-8");
-            response.getWriter().write("cadastro com sucesso");
+            response.sendRedirect("entrar");
         } catch(Exception e) {
-            response.setContentType("text/plain;charset=UTF-8");
-            response.getWriter().write(e.getMessage());
+            response.sendRedirect("cadastro");
         }    
     }
 }

@@ -1,0 +1,34 @@
+
+.Aligner {
+  display: flex;
+  align-items: center;
+  min-height: 60em;
+  justify-content: center;
+}
+
+.Aligner-item {
+  flex: 1;
+}
+
+.Aligner-item--top {
+  align-self: flex-start;
+}
+
+.Aligner-item--bottom {
+  align-self: flex-end;
+}
+
+.Aligner-item--fixed {
+  flex: none;
+  max-width: 50%;
+}
+
+.bg-img {
+    height: 100%;
+    background-image: url(./../img/bg.jpg);
+    background-position: center center;
+    background-repeat:  no-repeat;
+    background-attachment: fixed;
+    background-size:  cover;
+    background-color: #999;
+}
