@@ -46,3 +46,6 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 /nbproject/
+
+# test
+src/test/*
