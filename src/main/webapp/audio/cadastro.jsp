@@ -11,24 +11,82 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link rel="stylesheet" href="../styles/bulma.css"/>
+        <link rel="stylesheet" href="../styles/style.css"/>
+        <link rel="stylesheet" href="../styles/login.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     </head>
     <body>
-        <a href="../usuario/sair">Deslogar</a>
-        <h1>Cadastro do audio!</h1>
-        <%
-            Usuario user = (Usuario) request.getSession(false).getAttribute("user");
-        %>
-        <%= user %>
-        <form method="POST" action="cadastro" enctype="multipart/form-data">
-            <div>
-                <label for="titulo">Titulo do audio: </label>
-                <input type="text" name="titulo"/>
+        <section class="hero is-info is-fullheight">
+            <div class="hero-head">
+                <nav class="navbar">
+                    <div class="container">
+                        <div class="navbar-brand">
+                            <a class="navbar-item" href="../">
+                                <img src="../img/logo.png" alt="Logo">
+                                <h1 class="title">AudioManager</h1>
+                            </a>
+                            <span class="navbar-burger burger" data-target="navbarMenu">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </span>
+                        </div>
+                        <div id="navbarMenu" class="navbar-menu">
+                            <div class="navbar-end">
+                                <span class="navbar-item">
+                                    <%
+                                        Usuario currentUser = (Usuario) request.getSession().getAttribute("user");
+                                    %>
+                                    <h1>Usuario, <%= currentUser.getNome() %></h1>
+                                </span>
+                                <span class="navbar-item">
+                                    <a class="button is-white is-outlined" href="lista">
+                                        <span class="icon">
+                                            <i class="fa fa-list-ul"></i>
+                                        </span>
+                                        <span>Listagem</span>
+                                    </a>
+                                </span>
+                                <span class="navbar-item">
+                                    <a class="button is-white is-outlined" href="sair">
+                                        <span class="icon">
+                                            <i class="fa fa-sign-out"></i>
+                                        </span>
+                                        <span>Sair</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                </nav>
             </div>
-            <div>
-                <label for="arquivo">Arquivo de audio: </label>
-                <input type="file" name="arquivo"/>
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <div class="column is-4 is-offset-4">
+                        <h3 class="title has-text-white">Cadastrar Audio</h3>
+                        <p class="subtitle has-text-white">Cadastre um novo arquivo MP3 vinculado a sua conta.</p>
+                        <div class="box">
+                            <form action="cadastro" method="POST" enctype="multipart/form-data">
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-large" type="text" placeholder="Titulo do Audio" autofocus="" name="titulo">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div class="control">
+                                        <input class="input is-large" type="file" placeholder="Arquivo" autofocus="" name="arquivo">
+                                    </div>
+                                </div>
+                                <button class="button is-block is-info is-large is-fullwidth">Cadastrar Audio</button>
+                            </form>
+                        </div>
+                        <p class="has-text-white">
+                            <a href="lista">Listagem</a>
+                        </p>
+                    </div>
+                </div>
             </div>
-            <input type="submit" value="Enviar"/>
-        </form>
+        </section>
     </body>
 </html>

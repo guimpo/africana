@@ -2,12 +2,9 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <!--
 DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
-
 Copyright (c) 2008, 2016 Oracle and/or its affiliates. All rights reserved.
-
 Oracle and Java are registered trademarks of Oracle and/or its affiliates.
 Other names may be trademarks of their respective owners.
-
 The contents of this file are subject to the terms of either the GNU
 General Public License Version 2 only ("GPL") or the Common
 Development and Distribution License("CDDL") (collectively, the
@@ -25,7 +22,6 @@ accompanied this code. If applicable, add the following below the
 License Header, with the fields enclosed by brackets [] replaced by
 your own identifying information:
 "Portions Copyrighted [year] [name of copyright owner]"
-
 If you wish your version of this file to be governed by only the CDDL
 or only the GPL Version 2, indicate your decision by adding
 "[Contributor] elects to include this software in this distribution
@@ -36,20 +32,15 @@ to extend the choice of license to its licensees as provided above.
 However, if you add GPL Version 2 code and therefore, elected the GPL
 Version 2 license, then the option applies only if the new code is
 made subject to such option by the copyright holder.
-
 Contributor(s):
 -->
 <hibernate-configuration>
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <!--<property name="hibernate.connection.url">jdbc:postgresql://ec2-54-221-192-231.compute-1.amazonaws.com/dao3op1t73vbr9</property>
-    <property name="hibernate.connection.username">lalniccaqjprie</property>
-    <property name="hibernate.connection.password">a27841c523317ddc795c972c0658129c07f96b93fe4fe264969c5918d4fb05ce</property>
-    -->
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/audiomanager</property>
-    <property name="hibernate.connection.username">postgres</property>
-    <property name="hibernate.connection.password">postgres</property>
+    <property name="hibernate.connection.url">jdbc:postgressql://ec2-54-225-200-15.compute-1.amazonaws.com/d47mqdcp8omd52</property>
+    <property name="hibernate.connection.username">hsspcfpqwssqcu</property>
+    <property name="hibernate.connection.password">1bb1183626e88cd9908ea01d3f0779d7c7f6377e1227496d553670848f7745b4</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="com.utfpr.audiomanager.model.Usuario"/>
     <mapping class="com.utfpr.audiomanager.model.Audio"/>

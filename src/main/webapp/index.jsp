@@ -1,7 +1,7 @@
 <%-- 
-    Document   : login
-    Created on : Apr 12, 2018, 4:24:33 AM
-    Author     : paulo
+    Document   : index
+    Created on : 15/04/2018, 23:04:03
+    Author     : josevictor
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -9,21 +9,21 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Login</title>
-        <link rel="stylesheet" href="../styles/bulma.css"/>
-        <link rel="stylesheet" href="../styles/style.css"/>
-        <link rel="stylesheet" href="../styles/login.css"/>
+        <title>JSP Page</title>
+        <link rel="stylesheet" href="./styles/bulma.css"/>
+        <link rel="stylesheet" href="./styles/style.css"/>
+        <link rel="stylesheet" href="./styles/landing.css"/>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
     </head>
     <body>
-        <section class="hero is-success is-fullheight">
+      <section class="hero is-info is-fullheight">
         <div class="hero-head">
           <nav class="navbar">
             <div class="container">
               <div class="navbar-brand">
                 <a class="navbar-item" href="../">
-                  <img src="../img/logo.png" alt="Logo">
+                  <img src="./img/logo.png" alt="Logo">
                   <h1 class="title">AudioManager</h1>
                 </a>
                 <span class="navbar-burger burger" data-target="navbarMenu">
@@ -35,7 +35,7 @@
               <div id="navbarMenu" class="navbar-menu">
                   <div class="navbar-end">
                     <span class="navbar-item">
-                      <a class="button is-white is-outlined" href="../">
+                      <a class="button is-white is-outlined" href="./">
                         <span class="icon">
                           <i class="fa fa-home"></i>
                         </span>
@@ -43,7 +43,15 @@
                       </a>
                     </span>
                     <span class="navbar-item">
-                      <a class="button is-white is-outlined" href="cadastro">
+                      <a class="button is-white is-outlined" href="./usuario/entrar">
+                        <span class="icon">
+                          <i class="fa fa-sign-in"></i>
+                        </span>
+                        <span>Entrar</span>
+                      </a>
+                    </span>
+                    <span class="navbar-item">
+                      <a class="button is-white is-outlined" href="./usuario/cadastro">
                         <span class="icon">
                           <i class="fa fa-user-plus"></i>
                         </span>
@@ -62,34 +70,21 @@
             </div>
           </nav>
         </div>
-          <div class="hero-body">
-            <div class="container has-text-centered">
-              <div class="column is-4 is-offset-4">
-                <h3 class="title has-text-white">Login</h3>
-                <p class="subtitle has-text-white">Por favor, execute o login na plataforma.</p>
-                <div class="box">
-                  <form action="entrar" method="POST">
-                    <div class="field">
-                      <div class="control">
-                        <input class="input is-large" type="email" placeholder="Email" autofocus="" name="email">
-                      </div>
-                    </div>
 
-                    <div class="field">
-                      <div class="control">
-                        <input class="input is-large" type="password" placeholder="Senha" name="senha">
-                      </div>
-                    </div>
-                    <button class="button is-block is-info is-large is-fullwidth">Login</button>
-                  </form>
-                </div>
-                <p class="has-text-white">
-                  <a href="cadastro">Cadastrar</a>
-                </p>
-              </div>
+        <div class="hero-body">
+          <div class="container has-text-centered">
+            <div class="column is-6 is-offset-3">
+              <h1 class="title">
+                Audio Manager
+              </h1>
+              <h2 class="subtitle">
+                  Plataforma para gerenciar arquivos MP3. <a href="./usuario/cadastro">Clique aqui</a> para fazer o cadastro.
+              </h2>
             </div>
           </div>
-        </section>
-      <script async type="text/javascript" src="../js/bulma.js"></script>
+        </div>
+
+      </section>
+      <script async type="text/javascript" src="./js/bulma.js"></script>
     </body>
 </html>
