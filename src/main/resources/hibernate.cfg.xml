@@ -38,7 +38,7 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">postgres://hsspcfpqwssqcu:1bb1183626e88cd9908ea01d3f0779d7c7f6377e1227496d553670848f7745b4@ec2-54-225-200-15.compute-1.amazonaws.com:5432/d47mqdcp8omd52</property>
+    <property name="hibernate.connection.url">jdbc:postgressql://ec2-54-225-200-15.compute-1.amazonaws.com:5432/d47mqdcp8omd52</property>
     <property name="hibernate.connection.username">hsspcfpqwssqcu</property>
     <property name="hibernate.connection.password">1bb1183626e88cd9908ea01d3f0779d7c7f6377e1227496d553670848f7745b4</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
