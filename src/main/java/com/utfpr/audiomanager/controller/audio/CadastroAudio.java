@@ -90,14 +90,14 @@ public class CadastroAudio extends HttpServlet {
             audio.setCaminho(newFileName);
             audio.setUsuario(currentUser);
             new AudioDao().salvar(audio);
-            response.sendRedirect("cadastro");
+            response.sendRedirect("lista");
             return;
         } catch (FileUploadException e) {
             e.printStackTrace();
-            response.sendRedirect("../usuario/entrar");
+            response.sendRedirect("lista");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("../usuario/cadastro");
+            response.sendRedirect("lista");
         }
     }
 }
