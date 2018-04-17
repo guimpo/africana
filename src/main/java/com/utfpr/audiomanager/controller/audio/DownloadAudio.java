@@ -5,11 +5,13 @@
  */
 package com.utfpr.audiomanager.controller.audio;
 
-import java.io.File;
-import java.io.FileInputStream;
+import com.utfpr.audiomanager.dao.AudioDao;
+import com.utfpr.audiomanager.dao.UsuarioDao;
+import com.utfpr.audiomanager.model.Audio;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -29,33 +31,30 @@ public class DownloadAudio extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            String fileName = request.getParameter("filename");
-            if(fileName == null || fileName.equals("")){
-                    throw new ServletException("File Name can't be null or empty");
+            String fileName = request.getParameter("filename");      
+            
+            if(false) {
+                throw new ServletException("File doesn't exists on server.");
             }
-            String uploadPath = request.getServletContext().getRealPath("")
-                + File.separator + "uploads";
-            System.out.println(uploadPath + File.separator + fileName);
-            File file = new File(uploadPath + File.separator + fileName);
-            if(!file.exists()) {
-                            throw new ServletException("File doesn't exists on server.");
-            }
-            ServletContext ctx = getServletContext();
-            InputStream fis = new FileInputStream(file);
-            String mimeType = ctx.getMimeType(file.getAbsolutePath());
+            
+            
+            List<Audio> l = new AudioDao()
+                    .getAudiosByUsuario(new UsuarioDao().getUsuarioByEmail("emailemail"));
+            byte[] arquivo = l.get(0).getArquivo();
+            
+            InputStream input = new ByteArrayInputStream(arquivo);
+            
+            String mimeType = "audio/mpeg";
             response.setContentType(mimeType != null? mimeType:"application/octet-stream");
-            response.setContentLength((int) file.length());
+            response.setContentLength((int) l.get(0).getArquivo().length);
             response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
             ServletOutputStream os = response.getOutputStream();
-            byte[] bufferData = new byte[1024];
-            int read=0;
-            while((read = fis.read(bufferData))!= -1){
-                    os.write(bufferData, 0, read);
-            }
+            os.write(arquivo);
+
             os.flush();
             os.close();
-            fis.close();            
+            input.close();            
         } catch (Exception e) {
             e.printStackTrace();
         }

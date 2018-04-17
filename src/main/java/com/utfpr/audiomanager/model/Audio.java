@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import org.hibernate.annotations.Type;
 
 /**
  *
@@ -27,8 +28,14 @@ public class Audio implements Serializable {
     @SequenceGenerator(name="audio_generator", sequenceName = "audio_seq", allocationSize=50)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
+    
     private String titulo;
+    
     private String caminho;
+    
+    @Type(type="org.hibernate.type.BinaryType")
+    private byte[] arquivo;
+    
     @ManyToOne
     private Usuario usuario;
 
@@ -74,6 +81,14 @@ public class Audio implements Serializable {
             throw new Exception("Especifique o usuario");
         }
         this.usuario = usuario;
+    }
+    
+    public byte[] getArquivo() {
+        return arquivo;
+    }
+
+    public void setArquivo(byte[] arquivo) {
+        this.arquivo = arquivo;
     }
     
     @Override

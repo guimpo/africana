@@ -24,7 +24,7 @@
             if (queryTitulo == null) {
                 audios = new AudioDao().getAudiosByUsuario(user);
             } else {
-                audios = new AudioDao().getAudiosByUsuarioAndTitulo(user, queryTitulo);
+                audios = new AudioDao().getAudiosByUsuario(user);
             }
             String uploadPath = request.getServletContext().getRealPath("")
                 + File.separator + "uploads";
@@ -49,7 +49,7 @@
         %>
         <tr>
             <td><%= audio.getTitulo() %></td>
-            <td><a href="download?filename=<%= audio.getCaminho() %>">Arquivo</a></td>
+            <td><a href="download?filename=<%= audio.getTitulo() %>">Arquivo</a></td>
         </tr>
         <% } %>
             </tbody>
