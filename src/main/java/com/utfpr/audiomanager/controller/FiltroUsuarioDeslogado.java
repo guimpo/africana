@@ -48,6 +48,7 @@ public class FiltroUsuarioDeslogado implements Filter {
         
         if (session == null || session.getAttribute("user") == null) {
             this.context.log("Unauthorized access request");
+            session.setAttribute("er-message", "Voce nao possui autorizacao para acessar a pagina.");
             res.sendRedirect(req.getContextPath() + "/usuario/entrar");
         } else {
             System.out.println("Authorized");

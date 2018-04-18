@@ -90,6 +90,23 @@
                 <section class="box cta">
                     <div class="container">
                         <div class="card">
+                            <%
+                                String error = (String) session.getAttribute("er-message");
+                                String success = (String) session.getAttribute("su-message");
+                                if (error != null) {
+                            %>
+                            <div class="notification is-danger">
+                                <strong>Erro</strong>
+                                <%= error %>
+                                <% session.removeAttribute("er-message"); %>
+                            </div>
+                            <% } else if (success != null) { %>
+                            <div class="notification is-success">
+                                <strong>Sucesso</strong>
+                                <%= success %>
+                                <% session.removeAttribute("su-message"); %>
+                            </div>
+                            <% } %>
                             <div class="card-header">
                                 <p class="card-header-title">Audios</p>
                             </div>

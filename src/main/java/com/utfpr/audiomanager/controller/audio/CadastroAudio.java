@@ -90,13 +90,16 @@ public class CadastroAudio extends HttpServlet {
             audio.setCaminho(newFileName);
             audio.setUsuario(currentUser);
             new AudioDao().salvar(audio);
+            session.setAttribute("su-message", "Audio adicionado com sucesso!");
             response.sendRedirect("lista");
             return;
         } catch (FileUploadException e) {
             e.printStackTrace();
+            session.setAttribute("er-message", "Nao foi possivel executar o upload do arquivo.");
             response.sendRedirect("lista");
         } catch (Exception e) {
             e.printStackTrace();
+            session.setAttribute("er-message", "Nao foi possivel salvar o audio.");
             response.sendRedirect("lista");
         }
     }

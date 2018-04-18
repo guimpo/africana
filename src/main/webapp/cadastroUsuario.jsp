@@ -68,6 +68,23 @@
                 <h3 class="title has-text-white">Cadastrar Usuario</h3>
                 <p class="subtitle has-text-white">Cadastrar um novo usuario na plataforma.</p>
                 <div class="box">
+                    <%
+                        String error = (String) session.getAttribute("er-message");
+                        String success = (String) session.getAttribute("su-message");
+                        if (error != null) {
+                    %>
+                    <div class="notification is-danger">
+                        <strong>Erro</strong>
+                        <%= error %>
+                        <% session.removeAttribute("er-message"); %>
+                    </div>
+                    <% } else if (success != null) { %>
+                    <div class="notification is-success">
+                        <strong>Sucesso</strong>
+                        <%= success %>
+                        <% session.removeAttribute("su-message"); %>
+                    </div>
+                    <% } %>
                   <form action="cadastro" method="POST">
                     <div class="field">
                       <div class="control">
