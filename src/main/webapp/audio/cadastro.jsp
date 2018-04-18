@@ -67,6 +67,23 @@
                         <h3 class="title has-text-white">Cadastrar Audio</h3>
                         <p class="subtitle has-text-white">Cadastre um novo arquivo MP3 vinculado a sua conta.</p>
                         <div class="box">
+                            <%
+                                String error = (String) session.getAttribute("er-message");
+                                String success = (String) session.getAttribute("su-message");
+                                if (error != null) {
+                            %>
+                            <div class="notification is-danger">
+                                <strong>Erro</strong>
+                                <%= error %>
+                                <% session.removeAttribute("er-message"); %>
+                            </div>
+                            <% } else if (success != null) { %>
+                            <div class="notification is-success">
+                                <strong>Sucesso</strong>
+                                <%= success %>
+                                <% session.removeAttribute("su-message"); %>
+                            </div>
+                            <% } %>
                             <form action="cadastro" method="POST" enctype="multipart/form-data">
                                 <div class="field">
                                     <div class="control">
@@ -74,8 +91,20 @@
                                     </div>
                                 </div>
                                 <div class="field">
-                                    <div class="control">
-                                        <input class="input is-large" type="file" placeholder="Arquivo" autofocus="" name="arquivo">
+                                    <div class="file is-right is-info">
+                                        <label class="file-label">
+                                            <input class="file-input" type="file" name="arquivo" placeholder="Arquivo"/>
+                                            <span class="file-cta">
+                                                <span class="file-icon">
+                                                    <i class="fas fa-upload"></i>
+                                                </span>
+                                                <span class="file-label">
+                                                    Arquivo
+                                                </span>
+                                            </span>
+                                            <span class="file-name">
+                                            </span>
+                                        </label>
                                     </div>
                                 </div>
                                 <button class="button is-block is-info is-large is-fullwidth">Cadastrar Audio</button>

@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,6 +39,7 @@ public class CadastroUsuario extends HttpServlet {
         String nome = (String) request.getParameter("nome");
         String email = (String) request.getParameter("email");
         String senha = (String) request.getParameter("senha");
+        HttpSession session = request.getSession();
         
         Usuario u = new Usuario();
         try {
@@ -55,8 +57,10 @@ public class CadastroUsuario extends HttpServlet {
                 }
             }
             new UsuarioDao().salvar(u);
+            session.setAttribute("su-message", "Usuario cadastrado com sucesso!");
             response.sendRedirect("entrar");
         } catch(Exception e) {
+            session.setAttribute("er-message", e.getMessage());
             response.sendRedirect("cadastro");
         }    
     }

@@ -39,6 +39,8 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession session = request.getSession();
+        
         response.setContentType("text/plain;charset=UTF-8");
         
         String email = (String) request.getParameter("email");
@@ -61,14 +63,19 @@ public class Login extends HttpServlet {
                 HttpSession newSession = request.getSession(true);
                 newSession.setMaxInactiveInterval(5*60);
                 newSession.setAttribute("user", resultUsuario);
-                Cookie message = new Cookie("message", "Welcome");
-                response.addCookie(message);
+                session.setAttribute("su-message", "Bem Vindo");
                 response.sendRedirect("../audio/lista");
             } else {
                 throw new Exception("email ou senha inválidos");
             }
+        } catch(IllegalStateException ex) {
+            response.sendRedirect("../audio/lista");
         } catch(Exception e) {
-            response.getWriter().write(e.getMessage());
+            HttpSession lastSession = request.getSession(false);
+            if (lastSession != null) {
+                lastSession.setAttribute("er-message", e.getMessage());
+            }
+            response.sendRedirect("entrar");
         }
     }
 }
