@@ -38,9 +38,12 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgressql://ec2-54-221-192-231.compute-1.amazonaws.com/dao3op1t73vbr9</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://ec2-54-221-192-231.compute-1.amazonaws.com/dao3op1t73vbr9</property>
     <property name="hibernate.connection.username">lalniccaqjprie</property>
     <property name="hibernate.connection.password">a27841c523317ddc795c972c0658129c07f96b93fe4fe264969c5918d4fb05ce</property>
+    <!--<property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/audiomanager</property>
+    <property name="hibernate.connection.username">postgres</property>
+    <property name="hibernate.connection.password">postgres</property> -->
     <property name="hibernate.hbm2ddl.auto">update</property>
     <mapping class="com.utfpr.audiomanager.model.Usuario"/>
     <mapping class="com.utfpr.audiomanager.model.Audio"/>
