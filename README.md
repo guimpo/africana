@@ -2,6 +2,9 @@
 
 ## Endereço Produção
   https://hidden-inlet-33889.herokuapp.com/
+
+## Endereço Teste
+  https://serene-springs-75930.herokuapp.com/
   
 ## Contribuidores
  - José Victor - [josevictorferreira](http://github.com/josevictorferreira/)
