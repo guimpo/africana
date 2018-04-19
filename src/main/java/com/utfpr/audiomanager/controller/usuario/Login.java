@@ -9,10 +9,8 @@ import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
 import com.utfpr.audiomanager.util.HashingUtil;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -47,6 +45,7 @@ public class Login extends HttpServlet {
         String senha = (String) request.getParameter("senha");
         
         try {
+            
             Usuario resultUsuario = new UsuarioDao().getUsuarioByEmail(email);
             
             if (resultUsuario == null) {
