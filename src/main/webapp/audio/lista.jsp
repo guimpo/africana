@@ -71,8 +71,8 @@
                                 <div class="card-content">
                                     <div class="content">
                                         <div class="control has-icons-left has-icons-right">
-                                            <form action="lista" method="GET">
-                                                <input class="input is-large" type="text" placeholder="Buscar por Titulo" name="titulo">
+                                            <form action="download" method="GET">
+                                                <input class="input is-large" type="text" placeholder="Buscar por Titulo" name="filename">
                                                 <span class="icon is-medium is-left">
                                                     <i class="fa fa-search"></i>
                                                 </span>
