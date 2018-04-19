@@ -48,11 +48,11 @@ public class CadastroUsuario extends HttpServlet {
             u.setSenha(senha);
             
             List<Usuario> l = new UsuarioDao().getList();
-            // garantir que tabela usuário sempre tenha um usuário
             for(Usuario uu : l) {
                 if(uu.getEmail() != null && uu.getEmail().equalsIgnoreCase(email)) {
                     response.setContentType("text/plain;charset=UTF-8");
-                    response.getWriter().write("email já cadastrado");
+                    session.setAttribute("er-message", "Email já cadastrado");
+                    response.sendRedirect("cadastro");
                     return;
                 }
             }

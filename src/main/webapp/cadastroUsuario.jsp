@@ -74,7 +74,7 @@
                         if (error != null) {
                     %>
                     <div class="notification is-danger">
-                        <strong>Erro</strong>
+                        <strong>Erro: </strong>
                         <%= error %>
                         <% session.removeAttribute("er-message"); %>
                     </div>
