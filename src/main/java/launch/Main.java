@@ -39,4 +39,3 @@ public class Main {
         tomcat.getServer().await();
     }
 }
-
