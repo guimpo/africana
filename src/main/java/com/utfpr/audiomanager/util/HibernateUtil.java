@@ -5,8 +5,12 @@
  */
 package com.utfpr.audiomanager.util;
 
-import org.hibernate.cfg.AnnotationConfiguration;
+import java.util.HashMap;
+import java.util.Map;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -16,21 +20,29 @@ import org.hibernate.SessionFactory;
  */
 public class HibernateUtil {
 
-    private static final SessionFactory sessionFactory;
-    
-    static {
-        try {
-            // Create the SessionFactory from standard (hibernate.cfg.xml) 
-            // config file.
-            sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            // Log the exception. 
-            System.err.println("Initial SessionFactory creation failed." + ex);
-            throw new ExceptionInInitializerError(ex);
-        }
-    }
+    private static SessionFactory sessionFactory = null;
+    private HibernateUtil() {}
     
     public static SessionFactory getSessionFactory() {
+        try {
+            Map<String,String> jdbcUrlSettings = new HashMap<>();
+            String jdbcDbUrl = System.getenv("JDBC_DATABASE_URL");
+            if (null != jdbcDbUrl) {
+                jdbcUrlSettings.put("hibernate.connection.url", System.getenv("JDBC_DATABASE_URL"));
+            }
+                        
+            ServiceRegistry registry = new StandardServiceRegistryBuilder()
+                    .configure("hibernate.cfg.xml")
+                    .applySettings(jdbcUrlSettings)
+                    .build();
+            
+            sessionFactory = new Configuration()
+                    .configure()
+                    .buildSessionFactory(registry);
+        } catch (Throwable ex) {
+            System.err.println("Erro ao criar sessionFactory" + ex);
+            throw new ExceptionInInitializerError(ex);
+        }
         return sessionFactory;
     }
 }
