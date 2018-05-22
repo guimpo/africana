@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.utfpr.audiomanager.controller.usuario;
 
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
 import com.utfpr.audiomanager.util.HashingUtil;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author paulo
- */
 @WebServlet(name = "Login", urlPatterns = {"/usuario/entrar"})
 public class Login extends HttpServlet {
     
@@ -41,6 +30,7 @@ public class Login extends HttpServlet {
         
         HttpSession session = request.getSession();
         
+        // TODO: adicionar no filtro !
         response.setContentType("text/plain;charset=UTF-8");
         
         String email = (String) request.getParameter("email");
@@ -63,7 +53,7 @@ public class Login extends HttpServlet {
                 HttpSession newSession = request.getSession(true);
                 newSession.setMaxInactiveInterval(5*60);
                 newSession.setAttribute("user", resultUsuario);
-                session.setAttribute("su-message", "Bem Vindo");
+                session.setAttribute("suMessage", "Bem Vindo");
                 response.sendRedirect("../audio/lista");
             } else {
                 throw new Exception("email ou senha inválidos");
@@ -73,7 +63,7 @@ public class Login extends HttpServlet {
         } catch(Exception e) {
             HttpSession lastSession = request.getSession(false);
             if (lastSession != null) {
-                lastSession.setAttribute("er-message", e.getMessage());
+                lastSession.setAttribute("erMessage", e.getMessage());
             }
             response.sendRedirect("entrar");
         }

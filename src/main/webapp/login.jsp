@@ -1,10 +1,5 @@
-<%-- 
-    Document   : login
-    Created on : Apr 12, 2018, 4:24:33 AM
-    Author     : paulo
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -67,24 +62,14 @@
               <div class="column is-4 is-offset-4">
                 <h3 class="title has-text-white">Login</h3>
                 <p class="subtitle has-text-white">Por favor, execute o login na plataforma.</p>
-                <div class="box">
-                    <%
-                        String error = (String) session.getAttribute("er-message");
-                        String success = (String) session.getAttribute("su-message");
-                        if (error != null) {
-                    %>
-                    <div class="notification is-danger">
-                        <strong>Erro</strong>
-                        <%= error %>
-                        <% session.removeAttribute("er-message"); %>
-                    </div>
-                    <% } else if (success != null) { %>
-                    <div class="notification is-success">
-                        <strong>Sucesso</strong>
-                        <%= success %>
-                        <% session.removeAttribute("su-message"); %>
-                    </div>
-                    <% } %>
+                <div class="box">  
+                    <c:if test="${sessionScope.erMessage != null}">
+                        <div class="notification is-danger">
+                            <strong>Erro</strong>
+                            <c:out value='${sessionScope.erMessage}'/>
+                            <c:set var="erMessage" value="" scope="session"  />
+                        </div>
+                    </c:if>
                   <form action="entrar" method="POST">
                     <div class="field">
                       <div class="control">
