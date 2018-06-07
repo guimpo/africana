@@ -6,6 +6,7 @@
 
 <%@page import="com.utfpr.audiomanager.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,10 +37,7 @@
                         <div id="navbarMenu" class="navbar-menu">
                             <div class="navbar-end">
                                 <span class="navbar-item">
-                                    <%
-                                        Usuario currentUser = (Usuario) request.getSession().getAttribute("user");
-                                    %>
-                                    <h1>Usuario, <%= currentUser.getNome() %></h1>
+                                    <h1>Usuario, ${sessionScope.user.nome}</h1>
                                 </span>
                                 <span class="navbar-item">
                                     <a class="button is-white is-outlined" href="lista">
@@ -67,23 +65,20 @@
                         <h3 class="title has-text-white">Cadastrar Audio</h3>
                         <p class="subtitle has-text-white">Cadastre um novo arquivo MP3 vinculado a sua conta.</p>
                         <div class="box">
-                            <%
-                                String error = (String) session.getAttribute("er-message");
-                                String success = (String) session.getAttribute("su-message");
-                                if (error != null) {
-                            %>
-                            <div class="notification is-danger">
-                                <strong>Erro</strong>
-                                <%= error %>
-                                <% session.removeAttribute("er-message"); %>
-                            </div>
-                            <% } else if (success != null) { %>
-                            <div class="notification is-success">
-                                <strong>Sucesso</strong>
-                                <%= success %>
-                                <% session.removeAttribute("su-message"); %>
-                            </div>
-                            <% } %>
+                            <c:if test="${sessionScope.suMessage != null}">
+                                <div class="notification is-success">
+                                    <strong>Erro</strong>
+                                    <c:out value='${sessionScope.suMessage}'/>
+                                    <c:set var="suMessage" value="" scope="session"  />
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.erMessage != null}">
+                                <div class="notification is-danger">
+                                    <strong>Erro</strong>
+                                    <c:out value='${sessionScope.erMessage}'/>
+                                    <c:set var="erMessage" value="" scope="session"  />
+                                </div>
+                            </c:if>
                             <form action="cadastro" method="POST" enctype="multipart/form-data">
                                 <div class="field">
                                     <div class="control">

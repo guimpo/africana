@@ -28,7 +28,7 @@ public class CadastroUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         getServletContext()
-                .getRequestDispatcher("/cadastroUsuario.jsp")
+                .getRequestDispatcher("/WEB-INF/view/usuario/cadastroUsuario.jsp")
                 .forward(request, response);
     }
 

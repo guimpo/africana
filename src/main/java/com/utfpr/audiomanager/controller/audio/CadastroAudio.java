@@ -45,7 +45,7 @@ public class CadastroAudio extends HttpServlet {
         HttpSession session = request.getSession();
         Usuario user = (Usuario) session.getAttribute("user");
         getServletContext()
-                .getRequestDispatcher("/audio/cadastro.jsp")
+                .getRequestDispatcher("/WEB-INF/view/audio/cadastro.jsp")
                 .forward(request, response);        
     }
 

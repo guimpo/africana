@@ -20,7 +20,7 @@ public class Login extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         getServletContext()
-                .getRequestDispatcher("/login.jsp")
+                .getRequestDispatcher("/WEB-INF/view/usuario/login.jsp")
                 .forward(request, response);
     }
 

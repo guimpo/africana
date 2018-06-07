@@ -10,6 +10,7 @@
 <%@page import="com.utfpr.audiomanager.dao.AudioDao"%>
 <%@page import="com.utfpr.audiomanager.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,10 +41,7 @@
                         <div id="navbarMenu" class="navbar-menu">
                             <div class="navbar-end">
                                 <span class="navbar-item">
-                                    <%
-                                        Usuario currentUser = (Usuario) request.getSession().getAttribute("user");
-                                    %>
-                                    <h1 class="subtitle">Usuario, <%= currentUser.getNome() %></h1>
+                                    <h1 class="subtitle">Usuario, ${sessionScope.user.nome}</h1>
                                 </span>
                                 <span class="navbar-item">
                                     <a class="button is-white is-outlined" href="cadastro">
@@ -90,23 +88,20 @@
                 <section class="box cta">
                     <div class="container">
                         <div class="card">
-                            <%
-                                String error = (String) session.getAttribute("er-message");
-                                String success = (String) session.getAttribute("su-message");
-                                if (error != null) {
-                            %>
-                            <div class="notification is-danger">
-                                <strong>Erro</strong>
-                                <%= error %>
-                                <% session.removeAttribute("er-message"); %>
-                            </div>
-                            <% } else if (success != null) { %>
-                            <div class="notification is-success">
-                                <strong>Sucesso</strong>
-                                <%= success %>
-                                <% session.removeAttribute("su-message"); %>
-                            </div>
-                            <% } %>
+                            <c:if test="${sessionScope.suMessage != null}">
+                                <div class="notification is-success">
+                                    <strong>Erro</strong>
+                                    <c:out value='${sessionScope.suMessage}'/>
+                                    <c:set var="suMessage" value="" scope="session"  />
+                                </div>
+                            </c:if>
+                            <c:if test="${sessionScope.erMessage != null}">
+                                <div class="notification is-danger">
+                                    <strong>Erro</strong>
+                                    <c:out value='${sessionScope.erMessage}'/>
+                                    <c:set var="erMessage" value="" scope="session"  />
+                                </div>
+                            </c:if>
                             <div class="card-header">
                                 <p class="card-header-title">Audios</p>
                             </div>
@@ -119,26 +114,12 @@
                                     <th>Arquivo</th>
                                     </thead>
                                     <tbody>
-                                        <%
-                                            Usuario user = (Usuario) request.getSession(false).getAttribute("user");
-                                            String queryTitulo = request.getParameter("titulo");
-                                            List<Audio> audios = null;
-                                            if (queryTitulo == null) {
-                                                audios = new AudioDao().getAudiosByUsuario(user);
-                                            } else {
-                                                audios = new AudioDao().getAudiosByUsuarioAndTitulo(user, queryTitulo);
-                                            }
-                                            String uploadPath = request.getServletContext().getRealPath("")
-                                                    + File.separator + "uploads";
-                                        %>
-                                        <%
-                                            for (Audio audio : audios) {
-                                        %>
-                                        <tr>
-                                            <td><%= audio.getTitulo()%></td>
-                                            <td><a href="download?filename=<%= audio.getCaminho()%>">Download</a></td>
-                                        </tr>
-                                        <% }%>        
+                                        <c:forEach items="${sessionScope.audios}" var="audio">
+                                            <tr>
+                                                <td>${audio.titulo}</td>
+                                                <td><a href="download?filename=${audio.caminho}">Download</a></td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
