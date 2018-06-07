@@ -7,6 +7,7 @@
 <%@page import="com.utfpr.audiomanager.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,14 +38,14 @@
                         <div id="navbarMenu" class="navbar-menu">
                             <div class="navbar-end">
                                 <span class="navbar-item">
-                                    <h1>Usuario, ${sessionScope.user.nome}</h1>
+                                    <h1><fmt:message key="audio.usuario"/> ${sessionScope.user.nome}</h1>
                                 </span>
                                 <span class="navbar-item">
                                     <a class="button is-white is-outlined" href="lista">
                                         <span class="icon">
                                             <i class="fa fa-list-ul"></i>
                                         </span>
-                                        <span>Listagem</span>
+                                        <span><fmt:message key="audio.lista"/></span>
                                     </a>
                                 </span>
                                 <span class="navbar-item">
@@ -52,7 +53,7 @@
                                         <span class="icon">
                                             <i class="fa fa-sign-out"></i>
                                         </span>
-                                        <span>Sair</span>
+                                        <span><fmt:message key="audio.sair"/></span>
                                     </a>
                                 </span>
                             </div>
@@ -62,19 +63,19 @@
             <div class="hero-body">
                 <div class="container has-text-centered">
                     <div class="column is-4 is-offset-4">
-                        <h3 class="title has-text-white">Cadastrar Audio</h3>
-                        <p class="subtitle has-text-white">Cadastre um novo arquivo MP3 vinculado a sua conta.</p>
+                        <h3 class="title has-text-white"><fmt:message key="audio.cadastrar"/></h3>
+                        <p class="subtitle has-text-white"><fmt:message key="audio.descricao"/></p>
                         <div class="box">
                             <c:if test="${sessionScope.suMessage != null}">
                                 <div class="notification is-success">
-                                    <strong>Erro</strong>
+                                    <strong><fmt:message key="site.sucesso"/></strong>
                                     <c:out value='${sessionScope.suMessage}'/>
                                     <c:set var="suMessage" value="" scope="session"  />
                                 </div>
                             </c:if>
                             <c:if test="${sessionScope.erMessage != null}">
                                 <div class="notification is-danger">
-                                    <strong>Erro</strong>
+                                    <strong><fmt:message key="site.erro"/></strong>
                                     <c:out value='${sessionScope.erMessage}'/>
                                     <c:set var="erMessage" value="" scope="session"  />
                                 </div>
@@ -82,7 +83,8 @@
                             <form action="cadastro" method="POST" enctype="multipart/form-data">
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input is-large" type="text" placeholder="Titulo do Audio" autofocus="" name="titulo">
+                                        <fmt:message key="campo.titulo" var="titulolabel"/>
+                                        <input class="input is-large" type="text" placeholder="${titulolabel}" autofocus="" name="titulo">
                                     </div>
                                 </div>
                                 <div class="field">
@@ -94,7 +96,7 @@
                                                     <i class="fas fa-upload"></i>
                                                 </span>
                                                 <span class="file-label">
-                                                    Arquivo
+                                                    <fmt:message key="campo.arquivo"/>
                                                 </span>
                                             </span>
                                             <span class="file-name">
@@ -102,11 +104,11 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button class="button is-block is-info is-large is-fullwidth">Cadastrar Audio</button>
+                                <button class="button is-block is-info is-large is-fullwidth"><fmt:message key="audio.cadastrar"/></button>
                             </form>
                         </div>
                         <p class="has-text-white">
-                            <a href="lista">Listagem</a>
+                            <a href="lista"><fmt:message key="audio.lista"/></a>
                         </p>
                     </div>
                 </div>

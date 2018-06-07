@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -40,7 +41,7 @@
                                         <span class="icon">
                                             <i class="fa fa-home"></i>
                                         </span>
-                                        <span>Home</span>
+                                        <span><fmt:message key="site.home"/></span>
                                     </a>
                                 </span>
                                 <span class="navbar-item">
@@ -48,7 +49,7 @@
                                         <span class="icon">
                                             <i class="fa fa-sign-in"></i>
                                         </span>
-                                        <span>Entrar</span>
+                                        <span><fmt:message key="site.entrar"/></span>
                                     </a>
                                 </span>
                                 <span class="navbar-item">
@@ -56,7 +57,7 @@
                                         <span class="icon">
                                             <i class="fa fa-github"></i>
                                         </span>
-                                        <span>View Source</span>
+                                        <span><fmt:message key="site.codigo"/></span>
                                     </a>
                                 </span>
                             </div>
@@ -66,19 +67,19 @@
             <div class="hero-body">
                 <div class="container has-text-centered">
                     <div class="column is-4 is-offset-4">
-                        <h3 class="title has-text-white">Cadastrar Usuario</h3>
-                        <p class="subtitle has-text-white">Cadastrar um novo usuario na plataforma.</p>
+                        <h3 class="title has-text-white"><fmt:message key="cadastrar.titulo"/></h3>
+                        <p class="subtitle has-text-white"><fmt:message key="cadastrar.descricao"/></p>
                         <div class="box">
                             <c:if test="${sessionScope.suMessage != null}">
                                 <div class="notification is-success">
-                                    <strong>Erro</strong>
+                                    <strong><fmt:message key="site.sucesso"/></strong>
                                     <c:out value='${sessionScope.suMessage}'/>
                                     <c:set var="suMessage" value="" scope="session"  />
                                 </div>
                             </c:if>
                             <c:if test="${sessionScope.erMessage != null}">
                                 <div class="notification is-danger">
-                                    <strong>Erro</strong>
+                                    <strong><fmt:message key="site.erro"/></strong>
                                     <c:out value='${sessionScope.erMessage}'/>
                                     <c:set var="erMessage" value="" scope="session"  />
                                 </div>
@@ -86,24 +87,27 @@
                             <form action="cadastro" method="POST">
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input is-large" type="text" placeholder="Nome" autofocus="" name="nome">
+                                        <fmt:message key="campo.nome" var="nomelabel"/>
+                                        <input class="input is-large" type="text" placeholder="${nomelabel}" autofocus="" name="nome">
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input is-large" type="email" placeholder="Email" autofocus="" name="email">
+                                        <fmt:message key="campo.email" var="emaillabel"/>
+                                        <input class="input is-large" type="email" placeholder="${emaillabel}" autofocus="" name="email">
                                     </div>
                                 </div>
                                 <div class="field">
                                     <div class="control">
-                                        <input class="input is-large" type="password" placeholder="Senha" name="senha">
+                                        <fmt:message key="campo.senha" var="senhalabel"/>
+                                        <input class="input is-large" type="password" placeholder="${senhalabel}" name="senha">
                                     </div>
                                 </div>
-                                <button class="button is-block is-info is-large is-fullwidth">Cadastrar</button>
+                                <button class="button is-block is-info is-large is-fullwidth"><fmt:message key="cadastrar.titulo"/></button>
                             </form>
                         </div>
                         <p class="has-text-white">
-                            <a href="entrar">Login</a>
+                            <a href="entrar"><fmt:message key="login.titulo"/></a>
                         </p>
                     </div>
                 </div>

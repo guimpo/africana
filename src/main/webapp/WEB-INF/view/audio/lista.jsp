@@ -11,6 +11,7 @@
 <%@page import="com.utfpr.audiomanager.model.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -41,14 +42,14 @@
                         <div id="navbarMenu" class="navbar-menu">
                             <div class="navbar-end">
                                 <span class="navbar-item">
-                                    <h1 class="subtitle">Usuario, ${sessionScope.user.nome}</h1>
+                                    <h1 class="subtitle"><fmt:message key="audio.usuario"/>, ${sessionScope.user.nome}</h1>
                                 </span>
                                 <span class="navbar-item">
                                     <a class="button is-white is-outlined" href="cadastro">
                                         <span class="icon">
                                             <i class="fa fa-plus-circle"></i>
                                         </span>
-                                        <span>Adicionar Audio</span>
+                                        <span><fmt:message key="audio.adicionar"/></span>
                                     </a>
                                 </span>
                                 <span class="navbar-item">
@@ -56,7 +57,7 @@
                                         <span class="icon">
                                             <i class="fa fa-sign-out"></i>
                                         </span>
-                                        <span>Sair</span>
+                                        <span><fmt:message key="audio.sair"/></span>
                                     </a>
                                 </span>
                             </div>
@@ -70,7 +71,8 @@
                                     <div class="content">
                                         <div class="control has-icons-left has-icons-right">
                                             <form action="lista" method="GET">
-                                                <input class="input is-large" type="text" placeholder="Buscar por Titulo" name="titulo">
+                                                <fmt:message key="audio.busca" var="buscalabel"/>
+                                                <input class="input is-large" type="text" placeholder="${buscalabel}" name="titulo">
                                                 <span class="icon is-medium is-left">
                                                     <i class="fa fa-search"></i>
                                                 </span>
@@ -90,14 +92,14 @@
                         <div class="card">
                             <c:if test="${sessionScope.suMessage != null}">
                                 <div class="notification is-success">
-                                    <strong>Erro</strong>
+                                    <strong><fmt:message key="site.sucesso"/>,</strong>
                                     <c:out value='${sessionScope.suMessage}'/>
                                     <c:set var="suMessage" value="" scope="session"  />
                                 </div>
                             </c:if>
                             <c:if test="${sessionScope.erMessage != null}">
                                 <div class="notification is-danger">
-                                    <strong>Erro</strong>
+                                    <strong><fmt:message key="site.erro"/>,</strong>
                                     <c:out value='${sessionScope.erMessage}'/>
                                     <c:set var="erMessage" value="" scope="session"  />
                                 </div>
@@ -110,8 +112,8 @@
                             <div class="content">
                                 <table class="is-full-width is-stripped">
                                     <thead>
-                                    <th>Titulo</th>
-                                    <th>Arquivo</th>
+                                    <th><fmt:message key="audio.titulo"/></th>
+                                    <th><fmt:message key="audio.arquivo"/></th>
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${sessionScope.audios}" var="audio">

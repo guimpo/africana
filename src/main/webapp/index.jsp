@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -39,7 +41,7 @@
                         <span class="icon">
                           <i class="fa fa-home"></i>
                         </span>
-                        <span>Home</span>
+                        <span><fmt:message key="site.home"/></span>
                       </a>
                     </span>
                     <span class="navbar-item">
@@ -47,7 +49,7 @@
                         <span class="icon">
                           <i class="fa fa-sign-in"></i>
                         </span>
-                        <span>Entrar</span>
+                        <span><fmt:message key="site.entrar"/></span>
                       </a>
                     </span>
                     <span class="navbar-item">
@@ -55,7 +57,7 @@
                         <span class="icon">
                           <i class="fa fa-user-plus"></i>
                         </span>
-                        <span>Cadastrar</span>
+                        <span><fmt:message key="site.cadastrar"/></span>
                       </a>
                     </span>
                   <span class="navbar-item">
@@ -63,7 +65,7 @@
                       <span class="icon">
                         <i class="fa fa-github"></i>
                       </span>
-                      <span>View Source</span>
+                      <span><fmt:message key="site.codigo"/></span>
                     </a>
                   </span>
               </div>
@@ -75,10 +77,10 @@
           <div class="container has-text-centered">
             <div class="column is-6 is-offset-3">
               <h1 class="title">
-                Audio Manager
+                <fmt:message key="site.titulo"/>
               </h1>
               <h2 class="subtitle">
-                  Plataforma para gerenciar arquivos MP3. <a href="./usuario/cadastro">Clique aqui</a> para fazer o cadastro.
+                  <fmt:message key="site.descricao"/>
               </h2>
             </div>
           </div>

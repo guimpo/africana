@@ -30,32 +30,32 @@ public class DownloadAudio extends HttpServlet {
             throws ServletException, IOException {
         try {
             String fileName = request.getParameter("filename");
-            if(fileName == null || fileName.equals("")){
-                    throw new ServletException("File Name can't be null or empty");
+            if (fileName == null || fileName.equals("")) {
+                throw new ServletException("File Name can't be null or empty");
             }
             String uploadPath = request.getServletContext().getRealPath("")
-                + File.separator + "uploads";
+                    + File.separator + "uploads";
             System.out.println(uploadPath + File.separator + fileName);
             File file = new File(uploadPath + File.separator + fileName);
-            if(!file.exists()) {
-                            throw new ServletException("File doesn't exists on server.");
+            if (!file.exists()) {
+                throw new ServletException("File doesn't exists on server.");
             }
             ServletContext ctx = getServletContext();
             InputStream fis = new FileInputStream(file);
             String mimeType = ctx.getMimeType(file.getAbsolutePath());
-            response.setContentType(mimeType != null? mimeType:"application/octet-stream");
+            response.setContentType(mimeType != null ? mimeType : "application/octet-stream");
             response.setContentLength((int) file.length());
             response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
 
             ServletOutputStream os = response.getOutputStream();
             byte[] bufferData = new byte[1024];
-            int read=0;
-            while((read = fis.read(bufferData))!= -1){
-                    os.write(bufferData, 0, read);
+            int read = 0;
+            while ((read = fis.read(bufferData)) != -1) {
+                os.write(bufferData, 0, read);
             }
             os.flush();
             os.close();
-            fis.close();            
+            fis.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
