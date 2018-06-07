@@ -61,7 +61,6 @@
                                     </a>
                                 </span>
                                 <c:set var="clientLocale" value="${pageContext.request.locale}" />
-                                ${clientLocale}
                                 <c:if test="${clientLocale == 'en_US'}">
                                 <span class="navbar-item">
                                     <a class="button is-white is-outlined" href="./localizacao?local=br">
