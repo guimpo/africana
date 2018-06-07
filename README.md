@@ -1,7 +1,7 @@
 # AudioManager
 
 ## Endereço Produção
-  https://hidden-inlet-33889.herokuapp.com/
+  https://thawing-shelf-72755.herokuapp.com/
 
 ## Endereço Teste
   https://serene-springs-75930.herokuapp.com/
