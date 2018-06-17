@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.utfpr.audiomanager.controller.usuario;
 
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
+import com.utfpr.audiomanager.util.ETagUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -26,6 +22,18 @@ public class CadastroUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String eTagFromBrowser = request.getHeader("If-None-Match");
+        String eTagFromServer = ETagUtil.get(request, "WEB-INF/view/usuario/cadastroUsuario.jsp");
+
+        if (eTagFromServer.equals(eTagFromBrowser)) {
+            // retornar código 304
+            response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            return;
+        }
+
+        response.addHeader("ETag", ETagUtil.get(request, "WEB-INF/view/usuario/cadastroUsuario.jsp"));
+        
         response.setContentType("text/html;charset=UTF-8");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/usuario/cadastroUsuario.jsp")
