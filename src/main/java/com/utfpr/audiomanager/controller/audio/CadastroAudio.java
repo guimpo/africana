@@ -68,7 +68,7 @@ public class CadastroAudio extends HttpServlet {
             System.out.println(fields);
             Iterator<FileItem> it = fields.iterator();
             if (!it.hasNext()) {
-                throw new Exception("Could not write file");
+                throw new Exception("Erro ao salvar o arquivo.");
             }
             String titulo = null;
             String newFileName = null;

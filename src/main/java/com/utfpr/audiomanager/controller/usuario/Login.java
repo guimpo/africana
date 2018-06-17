@@ -49,6 +49,7 @@ public class Login extends HttpServlet {
         String senha = (String) request.getParameter("senha");
         
         try {
+            
             Usuario resultUsuario = new UsuarioDao().getUsuarioByEmail(email);
             
             if (resultUsuario == null) {

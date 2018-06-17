@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -17,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,6 +28,7 @@ public class DownloadAudio extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
         try {
             String fileName = request.getParameter("filename");
             if (fileName == null || fileName.equals("")) {
@@ -57,7 +58,11 @@ public class DownloadAudio extends HttpServlet {
             os.close();
             fis.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            session.setAttribute("er-message", e.getMessage());
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            getServletContext()
+                    .getRequestDispatcher("/audio/lista.jsp")
+                    .forward(request, response);
         }
     }
 }
