@@ -2,6 +2,7 @@ package com.utfpr.audiomanager.controller.usuario;
 
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
+import com.utfpr.audiomanager.util.ETagUtil;
 import com.utfpr.audiomanager.util.HashingUtil;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -17,6 +18,17 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String eTagFromBrowser = request.getHeader("If-None-Match");
+        String eTagFromServer = ETagUtil.get(request, "/WEB-INF/view/usuario/login.jsp");
+
+        if (eTagFromServer.equals(eTagFromBrowser)) {
+            // retornar código 304
+            response.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
+            return;
+        }
+
+        response.addHeader("ETag", ETagUtil.get(request, "/WEB-INF/view/usuario/login.jsp"));
         
         response.setContentType("text/html;charset=UTF-8");
         getServletContext()
