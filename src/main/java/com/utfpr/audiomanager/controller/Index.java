@@ -1,5 +1,6 @@
 package com.utfpr.audiomanager.controller;
 
+import com.utfpr.audiomanager.util.ETagUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -29,7 +30,7 @@ public class Index extends HttpServlet {
             throws ServletException, IOException {
         
         String eTagFromBrowser = request.getHeader("If-None-Match");
-        String eTagFromServer = getETag(request);
+        String eTagFromServer = ETagUtil.get(request, "index.jsp");
 
         if (eTagFromServer.equals(eTagFromBrowser)) {
             // retornar código 304
@@ -37,33 +38,33 @@ public class Index extends HttpServlet {
             return;
         }
 
-        response.addHeader("ETag", getETag(request));
+        response.addHeader("ETag", ETagUtil.get(request, "index.jsp"));
         getServletContext()
                 .getRequestDispatcher("/index.jsp")
                 .forward(request, response);        
     }
     
-    private String getETag (HttpServletRequest request) {
-        String filePath = request.getServletContext().getRealPath("")
-                    + File.separator + "index.jsp";
-        Path path = Paths.get(filePath);
-
-        File file = new File(filePath);
-        if (!file.exists()) {
-            try {
-                throw new ServletException("File doesn't exists on server.");
-            } catch (ServletException ex) {
-                Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
-            byte[] sha1 = messageDigest.digest(Files.readAllBytes(path));
-            return DatatypeConverter.printHexBinary(sha1);
-        } catch (NoSuchAlgorithmException | IOException ex) {
-            Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "errado" + path.toString();
-  }
+//    private String getETag (HttpServletRequest request) {
+//        String filePath = request.getServletContext().getRealPath("")
+//                    + File.separator + "index.jsp";
+//        Path path = Paths.get(filePath);
+//
+//        File file = new File(filePath);
+//        if (!file.exists()) {
+//            try {
+//                throw new ServletException("File doesn't exists on server.");
+//            } catch (ServletException ex) {
+//                Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        
+//        try {
+//            MessageDigest messageDigest = MessageDigest.getInstance("SHA-1");
+//            byte[] sha1 = messageDigest.digest(Files.readAllBytes(path));
+//            return DatatypeConverter.printHexBinary(sha1);
+//        } catch (NoSuchAlgorithmException | IOException ex) {
+//            Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return "errado" + path.toString();
+//  }
 }
