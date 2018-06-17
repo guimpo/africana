@@ -22,12 +22,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author josevictor
@@ -90,16 +84,13 @@ public class CadastroAudio extends HttpServlet {
             audio.setCaminho(newFileName);
             audio.setUsuario(currentUser);
             new AudioDao().salvar(audio);
-            session.setAttribute("su-message", "Audio adicionado com sucesso!");
+            session.setAttribute("suMessage", "Audio adicionado com sucesso!");
             response.sendRedirect("lista");
-            return;
         } catch (FileUploadException e) {
-            e.printStackTrace();
-            session.setAttribute("er-message", "Nao foi possivel executar o upload do arquivo.");
+            session.setAttribute("erMessage", "Nao foi possivel executar o upload do arquivo.");
             response.sendRedirect("lista");
         } catch (Exception e) {
-            e.printStackTrace();
-            session.setAttribute("er-message", "Nao foi possivel salvar o audio.");
+            session.setAttribute("erMessage", "Nao foi possivel salvar o audio.");
             response.sendRedirect("lista");
         }
     }
