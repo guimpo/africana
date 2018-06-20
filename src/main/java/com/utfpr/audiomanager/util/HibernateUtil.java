@@ -25,20 +25,22 @@ public class HibernateUtil {
     
     public static SessionFactory getSessionFactory() {
         try {
-            Map<String,String> jdbcUrlSettings = new HashMap<>();
-            String jdbcDbUrl = System.getenv("JDBC_DATABASE_URL");
-            if (null != jdbcDbUrl) {
-                jdbcUrlSettings.put("hibernate.connection.url", System.getenv("JDBC_DATABASE_URL"));
+            if (sessionFactory == null) {
+                Map<String,String> jdbcUrlSettings = new HashMap<>();
+                String jdbcDbUrl = System.getenv("JDBC_DATABASE_URL");
+                if (null != jdbcDbUrl) {
+                    jdbcUrlSettings.put("hibernate.connection.url", System.getenv("JDBC_DATABASE_URL"));
+                }
+
+                ServiceRegistry registry = new StandardServiceRegistryBuilder()
+                        .configure("hibernate.cfg.xml")
+                        .applySettings(jdbcUrlSettings)
+                        .build();
+
+                sessionFactory = new Configuration()
+                        .configure()
+                        .buildSessionFactory(registry);
             }
-                        
-            ServiceRegistry registry = new StandardServiceRegistryBuilder()
-                    .configure("hibernate.cfg.xml")
-                    .applySettings(jdbcUrlSettings)
-                    .build();
-            
-            sessionFactory = new Configuration()
-                    .configure()
-                    .buildSessionFactory(registry);
         } catch (Throwable ex) {
             System.err.println("Erro ao criar sessionFactory" + ex);
             throw new ExceptionInInitializerError(ex);
