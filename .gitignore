@@ -1,5 +1,4 @@
 *.class
-
 .env
 .vscode/
 
@@ -23,6 +22,7 @@ nbbuild/
 # dist/
 nbdist/
 nbactions.xml
+nbactions-heroku.xml
 nb-configuration.xml
 .nb-gradle/
 
