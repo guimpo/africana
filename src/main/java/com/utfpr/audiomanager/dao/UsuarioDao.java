@@ -6,8 +6,6 @@
 package com.utfpr.audiomanager.dao;
 
 import com.utfpr.audiomanager.model.Usuario;
-import org.hibernate.criterion.Example;
-import org.hibernate.criterion.MatchMode;
 
 /**
  *
