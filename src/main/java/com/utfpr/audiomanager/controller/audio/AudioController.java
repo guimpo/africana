@@ -146,4 +146,28 @@ public class AudioController extends HttpServlet {
             out.print(new Gson().toJson(updatedAudio));
         }
     }
+
+    @Override
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String uri = request.getRequestURI();     
+        List uriList = Arrays.asList(uri.split("/"));
+        
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        //System.out.println(uriList);
+        Long id = Long.parseLong(uriList.get(COM_ID - 1).toString());
+        Audio audio = new AudioDao().getAudioById(id);
+        if(audio == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+        } else {         
+            new AudioDao().remover(audio.getId());
+//            System.out.println(updatedAudio);
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        }
+    }
+    
+    
 }
