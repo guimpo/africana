@@ -11,6 +11,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Example;
@@ -79,26 +80,27 @@ public class GenericDao<T, I extends Serializable> {
     }
 
     public T remover(I id) {
+        Session session2 = HibernateUtil.getSessionFactory().openSession();
         T entity = null;
         Transaction transaction = null;
         try {
-            transaction = session.getTransaction();
+            transaction = session2.getTransaction();
             entity = encontrar(id);
             transaction.begin();
-            session.delete(entity);
-            session.flush();
+            session2.delete(entity);
+            session2.flush();
             transaction.commit();
-        } catch (Exception e) {
+        } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
         } finally {
-            if (session != null) {
-                session.close();
+            if (session2 != null) {
+                session2.close();
             }
         }
-        return entity;
+        return null;
     }
     
     public List<T> getList() {
