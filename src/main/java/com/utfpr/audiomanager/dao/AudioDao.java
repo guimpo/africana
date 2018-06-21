@@ -20,6 +20,10 @@ public class AudioDao extends GenericDao<Audio, Long>{
         super(Audio.class);
     }
     
+    public Audio getAudioById(Long id) {
+        return (Audio) session.get(Audio.class, id);
+    }
+    
     public List<Audio> getAudiosByUsuario(Usuario user) {
         List audios = session.createCriteria(Audio.class)
                 .add(Restrictions.eq("usuario", user))
