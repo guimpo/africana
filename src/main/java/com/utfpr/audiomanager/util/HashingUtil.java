@@ -5,8 +5,6 @@
  */
 package com.utfpr.audiomanager.util;
 
-import com.utfpr.audiomanager.dao.UsuarioDao;
-import com.utfpr.audiomanager.model.Usuario;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
