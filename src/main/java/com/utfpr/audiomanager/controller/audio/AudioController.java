@@ -7,6 +7,7 @@ import com.utfpr.audiomanager.model.Audio;
 import com.utfpr.audiomanager.model.Usuario;
 import com.utfpr.audiomanager.util.AppUtil;
 import com.utfpr.audiomanager.util.HorarioUtil;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -54,14 +55,14 @@ public class AudioController extends HttpServlet {
                 Long id = Long.parseLong(uriList.get(COM_ID - 1).toString());
                 Audio audio = new AudioDao().getAudioById(id);
                 if(audio == null) {
-                    response.sendError(response.SC_NOT_FOUND);
+                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
                     break;
                 }
                 out.print(new Gson().toJson(audio));
                 break;
             default:
                 out.print(new Gson().toJson(new Exception("boring")));
-                response.setStatus(response.SC_BAD_REQUEST);
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 
@@ -118,6 +119,31 @@ public class AudioController extends HttpServlet {
             response.setContentType("application/json;charset=UTF-8");
             PrintWriter out = response.getWriter();
             out.print(new Gson().toJson(e));
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String uri = request.getRequestURI();     
+        List uriList = Arrays.asList(uri.split("/"));
+        
+        response.setContentType("application/json;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        
+        //System.out.println(uriList);
+        Long id = Long.parseLong(uriList.get(COM_ID - 1).toString());
+        Audio audio = new AudioDao().getAudioById(id);
+        if(audio == null) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        } else {
+            BufferedReader reader = request.getReader();
+            Audio updatedAudio = new Gson().fromJson(reader, Audio.class);
+            new AudioDao().atualizar(updatedAudio);
+//            System.out.println(updatedAudio);
+            out.print(new Gson().toJson(updatedAudio));
         }
     }
 }
