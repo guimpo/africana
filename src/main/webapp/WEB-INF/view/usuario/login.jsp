@@ -4,13 +4,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>AudioManager - Login</title>
-        <link rel="stylesheet" href="../styles/bulma.css"/>
-        <link rel="stylesheet" href="../styles/style.css"/>
-        <link rel="stylesheet" href="../styles/login.css"/>
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      <title>AudioManager - Login</title>
+      <link rel="stylesheet" href="../styles/bulma.css"/>
+      <link rel="stylesheet" href="../styles/style.css"/>
+      <link rel="stylesheet" href="../styles/login.css"/>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+      <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     </head>
     <body>
         <section class="hero is-success is-fullheight">
@@ -78,21 +80,21 @@
                                     <c:set var="erMessage" value="" scope="session"  />
                                 </div>
                             </c:if>
-                            <form action="entrar" method="POST">
+                            <form id="formulario" action="./entrar" method="POST">
                                 <div class="field">
                                     <div class="control">
                                         <fmt:message key="campo.email" var="emaillabel"/>
-                                        <input class="input is-large" type="email" placeholder="${emaillabel}" autofocus="" name="email">
+                                        <input id="email" class="input is-large" type="email" placeholder="${emaillabel}" autofocus="" name="email">
                                     </div>
                                 </div>
 
                                 <div class="field">
                                     <div class="control">
                                         <fmt:message key="campo.senha" var="senhalabel"/>
-                                        <input class="input is-large" type="password" placeholder="${senhalabel}" name="senha">
+                                        <input id="senha" class="input is-large" type="password" placeholder="${senhalabel}" name="senha">
                                     </div>
                                 </div>
-                                <button class="button is-block is-info is-large is-fullwidth"><fmt:message key="login.titulo"/></button>
+                                <button type="submit" class="button is-block is-info is-large is-fullwidth"><fmt:message key="login.titulo"/></button>
                             </form>
                         </div>
                         <p class="has-text-white">
@@ -103,5 +105,39 @@
             </div>
         </section>
         <script async type="text/javascript" src="../js/bulma.js"></script>
+        <script>
+          $("#formulario").submit(function (event) {
+            //   event.preventDefault();
+              var email = $('#email').val();
+              var senha = $('#senha').val();
+
+              sessionStorage.setItem("basicAuth", btoa(email + ":" + senha));
+
+            //   var payload = JSON.stringify(
+            //   {
+            //       id: -1,
+            //       nome: "",
+            //       email: email,
+            //       senha: senha
+            //   });
+
+            //   $.ajax({
+            //     url: '/usuario/entrar',
+            //     type: 'POST',
+            //     dataType: 'json',
+            //     contentType: "application/json; charset=utf-8",
+            //     data: payload,
+            //     success: function (e) {
+            //       console.log(e);
+            //       console.log(payload);
+                  
+            //     },
+            //     error: function (e) {
+            //       console.log(e);
+            //       console.log(payload);
+            //     }
+            //   }); 
+            });
+        </script> 
     </body>
 </html>
