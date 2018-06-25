@@ -80,9 +80,9 @@
               <div class="card-content">
                 <div class="content">
                   <div class="control has-icons-left has-icons-right">
-                    <form action="lista" method="GET">
+                    <form id="formularioTitulo">
                       <fmt:message key="audio.busca" var="buscalabel" />
-                      <input class="input is-large" type="text" placeholder="${buscalabel}" name="titulo">
+                      <input id="queryTitulo" class="input is-large" type="text" placeholder="${buscalabel}" name="titulo">
                       <span class="icon is-medium is-left">
                         <i class="fa fa-search"></i>
                       </span>
@@ -133,12 +133,12 @@
                   </th>
                 </thead>
                 <tbody>
-                  <c:forEach items="${sessionScope.audios}" var="audio">
-                    <!-- <tr>
+                  <%--<c:forEach items="${sessionScope.audios}" var="audio">--%>
+<!--                     <tr>
                       <td>${audio.titulo}</td>
                               <td><a href="download?filename=${audio.caminho}">Download</a></td>
                     </tr> -->
-                  </c:forEach>
+                  <%--</c:forEach>--%>
                 </tbody>
               </table>
             </div>
@@ -160,22 +160,18 @@
     xhr.responseType = 'arraybuffer',
     xhr.onreadystatechange = function () {
       if (xhr.status == 200 && xhr.readyState == 4) {
-        // Create a new Blob object using the 
-        //response data of the onload object
+        // criar objeto blob
         var blob = new Blob([this.response], { type: 'application/octet-stream' });
-        //Create a link element, hide it, direct 
-        //it towards the blob, and then 'click' it programatically
+        // criar link
         let a = document.createElement("a");
         a.style = "display: none";
         document.body.appendChild(a);
-        //Create a DOMString representing the blob 
-        //and point the link element towards it
+        // apontar o link para o blob
         let url = window.URL.createObjectURL(blob);
         a.href = url;
-        a.download = 'myFile.mp3';
-        //programatically click the link to trigger the download
+        a.download = 'audio.mp3';
         a.click();
-        //release the reference to the file by revoking the Object URL
+        // liberar object url
         window.URL.revokeObjectURL(url);
       }
     }
@@ -184,22 +180,17 @@
 
   $("#listar").click(function (event) {
     event.preventDefault();
-    // var email = $('#email').val();
-    // var senha = $('#senha').val();
-
-    // sessionStorage.setItem("basicAuth", btoa(email + ":" + senha));
+    $("#tabela tbody").empty();
 
     $.ajax({
       url: '/api/audio2',
       type: 'GET',
-      //              dataType: 'json',
       contentType: "application/json; charset=utf-8",
-      //data: dados,
       beforeSend: function (xhr) {
         xhr.setRequestHeader("Authorization", "Basic " + sessionStorage.getItem("basicAuth"));
       },
       success: function (data) {
-        //console.log(data);
+        console.log(data);
         data.forEach(element => {
           var novaLinha = 
             "<tr>"
@@ -221,52 +212,39 @@
     });
   });
 
-  // $("#formularioUpload").submit(function (event) {
+   $("#formularioTitulo").submit(function (event) {
+     event.preventDefault();
 
-  //   //stop submit the form, we will post it manually.
-  //   event.preventDefault();
-
-  //   // Get form
-  //   var form = $('#formularioUpload')[0];
-
-  //   // Create an FormData object 
-  //   var data = new FormData(form);
-
-  //   // If you want to add an extra field for the FormData
-  //   // data.append("CustomField", "This is some extra data, testing");
-
-  //   // disabled the submit button
-  //   // $("#btnSubmit").prop("disabled", true);
-
-  //   $.ajax({
-  //     type: "POST",
-  //     enctype: 'multipart/form-data',
-  //     url: "/api/audio2",
-  //     data: data,
-  //     processData: false,
-  //     contentType: false,
-  //     cache: false,
-  //     timeout: 600000,
-  //     beforeSend: function (xhr) {
-  //       xhr.setRequestHeader("Authorization", "Basic " + sessionStorage.getItem("basicAuth"));
-  //     },
-  //     success: function (data) {
-
-  //       //$("#result").text(data);
-  //       console.log("SUCCESS : ", data);
-  //       //$("#btnSubmit").prop("disabled", false);
-
-  //     },
-  //     error: function (e) {
-
-  //       $("#result").text(e.responseText);
-  //       console.log("ERROR : ", e);
-  //       //$("#btnSubmit").prop("disabled", false);
-
-  //     }
-  //   });
-
-  // });
+     $.ajax({
+       type: "GET",
+       url: "/api/audio2" + "?" + "titulo" + "=" + $("#queryTitulo").val(),
+       beforeSend: function (xhr) {
+         xhr.setRequestHeader("Authorization", "Basic " + sessionStorage.getItem("basicAuth"));
+       },
+       success: function (data) {
+         console.log("SUCCESS : ", data);
+         $("#tabela tbody").empty();
+         
+         data.forEach(element => {
+           var novaLinha = 
+            "<tr>"
+          +  "<td>" 
+          +    element.titulo
+          +  "</td>"
+          +  "<td>"
+          +    "<button onclick='downloadAudio(this)'"
+          +      "value='" + element.id + "'>Download"
+          +    "</button>"
+          +  "</td>"
+          + "</tr>";
+          $("#tabela tbody").append(novaLinha);
+         });
+       },
+       error: function (e) {
+         console.log("ERROR : ", e);
+       }
+     });
+   });
 </script>
 
 </html>
