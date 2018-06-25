@@ -31,18 +31,18 @@ public class ListagemAudio extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         Usuario user = (Usuario) request.getSession(false).getAttribute("user");
-        String queryTitulo = request.getParameter("titulo");
-        List<Audio> audios = null;
-        if (queryTitulo == null) {
-            audios = new AudioDao().getAudiosByUsuario(user);
-        } else {
-            audios = new AudioDao().getAudiosByUsuarioAndTitulo(user, queryTitulo);
-        }
-        String uploadPath = request.getServletContext().getRealPath("")
-                                                    + File.separator + "uploads";
-        HttpSession session = request.getSession(false);
-        session.setAttribute("audios", audios);
-        session.setAttribute("uploadpath", uploadPath);
+        // String queryTitulo = request.getParameter("titulo");
+        // List<Audio> audios = null;
+        // if (queryTitulo == null) {
+            // audios = new AudioDao().getAudiosByUsuario(user);
+        // } else {
+            // audios = new AudioDao().getAudiosByUsuarioAndTitulo(user, queryTitulo);
+        // }
+        // String uploadPath = request.getServletContext().getRealPath("")
+                                                    // + File.separator + "uploads";
+        // HttpSession session = request.getSession(false);
+        // session.setAttribute("audios", audios);
+        // session.setAttribute("uploadpath", uploadPath);
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/view/audio/lista.jsp")
                 .forward(request, response);
