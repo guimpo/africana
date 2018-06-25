@@ -18,6 +18,8 @@
         <link rel="stylesheet" href="../styles/login.css"/>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
     </head>
     <body>
         <section class="hero is-info is-fullheight">
@@ -80,7 +82,7 @@
                                     <c:set var="erMessage" value="" scope="session"  />
                                 </div>
                             </c:if>
-                            <form action="cadastro" method="POST" enctype="multipart/form-data">
+                            <form id="formularioUpload">
                                 <div class="field">
                                     <div class="control">
                                         <fmt:message key="campo.titulo" var="titulolabel"/>
@@ -104,7 +106,7 @@
                                         </label>
                                     </div>
                                 </div>
-                                <button class="button is-block is-info is-large is-fullwidth"><fmt:message key="audio.cadastrar"/></button>
+                                <button type="submit" class="button is-block is-info is-large is-fullwidth"><fmt:message key="audio.cadastrar"/></button>
                             </form>
                         </div>
                         <p class="has-text-white">
@@ -114,5 +116,53 @@
                 </div>
             </div>
         </section>
+        <script>
+            $("#formularioUpload").submit(function (event) {
+
+                //stop submit the form, we will post it manually.
+                event.preventDefault();
+
+                // Get form
+                var form = $('#formularioUpload')[0];
+
+                // Create an FormData object 
+                var data = new FormData(form);
+
+                // If you want to add an extra field for the FormData
+               // data.append("CustomField", "This is some extra data, testing");
+
+                // disabled the submit button
+                // $("#btnSubmit").prop("disabled", true);
+
+                $.ajax({
+                    type: "POST",
+                    enctype: 'multipart/form-data',
+                    url: "/api/audio2",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 600000,
+                    beforeSend: function (xhr) {
+                      xhr.setRequestHeader("Authorization", "Basic " + sessionStorage.getItem("basicAuth"));
+                    },
+                    success: function (data) {
+
+                        //$("#result").text(data);
+                        console.log("SUCCESS : ", data);
+                        //$("#btnSubmit").prop("disabled", false);
+
+                    },
+                    error: function (e) {
+
+                        $("#result").text(e.responseText);
+                        console.log("ERROR : ", e);
+                        //$("#btnSubmit").prop("disabled", false);
+
+                    }
+                });
+              });
+        </script>
+        
     </body>
 </html>
