@@ -1,12 +1,15 @@
 package com.utfpr.audiomanager.controller.usuario;
 
+import com.google.gson.Gson;
 import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Usuario;
 import com.utfpr.audiomanager.util.ETagUtil;
 import com.utfpr.audiomanager.util.HashingUtil;
+import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,9 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
+        session.invalidate();
         
         String eTagFromBrowser = request.getHeader("If-None-Match");
         String eTagFromServer = ETagUtil.get(request, "/WEB-INF/view/usuario/login.jsp");
@@ -45,8 +51,16 @@ public class Login extends HttpServlet {
         // TODO: adicionar no filtro !
         response.setContentType("text/plain;charset=UTF-8");
         
-        String email = (String) request.getParameter("email");
-        String senha = (String) request.getParameter("senha");
+        // BufferedReader reader = request.getReader();
+        // Usuario user = new Gson().fromJson(reader, Usuario.class);
+        
+        // String email = user.getEmail();
+        // String senha = user.getSenha();
+
+        // System.out.println(user);
+
+        String email = request.getParameter("email");
+        String senha = request.getParameter("senha");
         
         try {
             
@@ -59,26 +73,20 @@ public class Login extends HttpServlet {
             boolean isSenhaValid = HashingUtil.validateHashedPassword(senha, resultUsuario.getSenha());
             
             if (isSenhaValid) {
-                HttpSession oldSession = request.getSession(false);
-                if (oldSession != null) {
-                    oldSession.invalidate();
-                }
-                HttpSession newSession = request.getSession(true);
-                newSession.setMaxInactiveInterval(5*60);
-                newSession.setAttribute("user", resultUsuario);
-                session.setAttribute("suMessage", "Bem Vindo");
-                response.sendRedirect("../audio/lista");
+                session.setMaxInactiveInterval(5*60);
+                session.setAttribute("user", resultUsuario);
+                getServletContext()
+                    .getRequestDispatcher("/WEB-INF/view/audio/lista.jsp")
+                    .forward(request, response);
             } else {
                 throw new Exception("email ou senha inválidos");
             }
-        } catch(IllegalStateException ex) {
-            response.sendRedirect("../audio/lista");
+//        }
+//        catch(IllegalStateException ex) {
+//            response.sendRedirect("../audio/lista");
         } catch(Exception e) {
-            HttpSession lastSession = request.getSession(false);
-            if (lastSession != null) {
-                lastSession.setAttribute("erMessage", e.getMessage());
-            }
-            response.sendRedirect("entrar");
+            session.setAttribute("erMessage", e.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }
