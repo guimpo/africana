@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author josevictor
  */
-@WebFilter(filterName = "FiltroUsuarioLogado", urlPatterns = {"/usuario/*"})
+@WebFilter(filterName = "FiltroUsuarioLogado", urlPatterns = {"/a/*"})
 public class FiltroUsuarioLogado implements Filter {
     private static final boolean debug = true;
 
@@ -35,25 +35,25 @@ public class FiltroUsuarioLogado implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        
-        HttpSession session = req.getSession(false);
-        
-        if (session == null || session.getAttribute("user") == null) {
-            this.context.log("Unauthorized access request");
-            chain.doFilter(request, response);
-        } else {
-            this.context.log("Unauthorized access request");
-            res.sendRedirect(req.getContextPath() + "/audio/lista");
-        }
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        HttpServletResponse res = (HttpServletResponse) response;
+//        
+//        HttpSession session = req.getSession(false);
+//        
+//        if (session == null || session.getAttribute("user") == null) {
+//            this.context.log("Unauthorized access request");
+//            chain.doFilter(request, response);
+//        } else {
+//            this.context.log("Unauthorized access request");
+//            res.sendRedirect(req.getContextPath() + "/audio/lista");
+//        }
     }
 
     public void destroy() {        
     }
 
     public void init(FilterConfig filterConfig) {        
-        this.context = filterConfig.getServletContext();
-        this.context.log("AuthenticationFilter initialized");
+//        this.context = filterConfig.getServletContext();
+//        this.context.log("AuthenticationFilter initialized");
     }   
 }

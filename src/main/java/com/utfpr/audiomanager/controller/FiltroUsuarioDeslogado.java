@@ -22,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author josevictor
  */
-@WebFilter(filterName = "FiltroUsuarioLogado", urlPatterns = {"/audio/*"})
+@WebFilter(filterName = "FiltroUsuarioLogado", urlPatterns = {"/y/*"})
 public class FiltroUsuarioDeslogado implements Filter {
     
     private static final boolean debug = true;
@@ -36,28 +36,28 @@ public class FiltroUsuarioDeslogado implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
             FilterChain chain)
             throws IOException, ServletException {
-        HttpServletRequest req = (HttpServletRequest) request;
-        HttpServletResponse res = (HttpServletResponse) response;
-        
-        HttpSession session = req.getSession(false);
-        
-        if (session == null || session.getAttribute("user") == null) {
-            this.context.log("Unauthorized access request");
-            session.setAttribute("er-message", "Voce nao possui autorizacao para acessar a pagina.");
-            res.sendRedirect(req.getContextPath() + "/usuario/entrar");
-        } else {
-            System.out.println("Authorized");
-            chain.doFilter(request, response);
-        }
+//        HttpServletRequest req = (HttpServletRequest) request;
+//        HttpServletResponse res = (HttpServletResponse) response;
+//        
+//        HttpSession session = req.getSession(false);
+//        
+//        if (session == null || session.getAttribute("user") == null) {
+//            this.context.log("Unauthorized access request");
+//            session.setAttribute("er-message", "Voce nao possui autorizacao para acessar a pagina.");
+//            res.sendRedirect(req.getContextPath() + "/usuario/entrar");
+//        } else {
+//            System.out.println("Authorized");
+//            chain.doFilter(request, response);
+//        }
     }
 
     public void init(FilterConfig filterConfig) {        
-        this.context = filterConfig.getServletContext();
-        this.context.log("AuthenticationFilter initialized");
+//        this.context = filterConfig.getServletContext();
+//        this.context.log("AuthenticationFilter initialized");
     }
 
     @Override
     public void destroy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
