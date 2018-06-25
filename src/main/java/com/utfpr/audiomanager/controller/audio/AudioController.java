@@ -2,7 +2,6 @@
 package com.utfpr.audiomanager.controller.audio;
 
 import com.google.gson.Gson;
-import com.sun.org.apache.xalan.internal.xsltc.trax.OutputSettings;
 import com.utfpr.audiomanager.dao.AudioDao;
 import com.utfpr.audiomanager.model.Audio;
 import com.utfpr.audiomanager.model.Usuario;
@@ -13,7 +12,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -56,6 +54,9 @@ public class AudioController extends HttpServlet {
         Matcher m = p.matcher(uri);
         boolean download = m.matches();
         
+        String buscaPorTitulo = request.getParameter("titulo");
+        
+        
         response.setContentType("application/json;charset=UTF-8");
         
         try(ServletOutputStream os = response.getOutputStream()) {
@@ -95,6 +96,9 @@ public class AudioController extends HttpServlet {
                 os.flush();
                 fis.close();
                 
+            } else if(buscaPorTitulo != null){
+                List audiosTitulo = new AudioDao().getAudiosByUsuarioAndTitulo(user, buscaPorTitulo);
+                os.print(new Gson().toJson(audiosTitulo));
             } else {
                 List<Audio> audios = new AudioDao().getAudiosByUsuario(user);
                 os.print(new Gson().toJson(audios));
