@@ -6,6 +6,7 @@
 package com.utfpr.audiomanager.util;
 
 import java.util.Base64;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  *
@@ -16,5 +17,15 @@ public class AppUtil {
     public static String encodeString(String value)
     {
         return Base64.getUrlEncoder().encodeToString(value.getBytes());
+    }
+    
+    public static String getJsonRequest(HttpServletRequest request) throws Exception
+    {
+        StringBuilder sb = new StringBuilder();
+        String s;
+        while ((s = request.getReader().readLine()) != null) {
+            sb.append(s);
+        }
+        return sb.toString();
     }
 }
