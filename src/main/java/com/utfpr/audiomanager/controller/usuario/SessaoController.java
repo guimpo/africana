@@ -6,9 +6,12 @@
 package com.utfpr.audiomanager.controller.usuario;
 
 import com.google.gson.Gson;
+import com.utfpr.audiomanager.dao.UsuarioDao;
 import com.utfpr.audiomanager.model.Credencial;
 import com.utfpr.audiomanager.model.Status;
+import com.utfpr.audiomanager.model.Usuario;
 import com.utfpr.audiomanager.util.AppUtil;
+import com.utfpr.audiomanager.util.HashingUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -64,7 +67,13 @@ public class SessaoController extends HttpServlet {
 
     private void validarCredenciais(Credencial credencial) throws Exception {
         try {
-            if (!credencial.getEmail().equals("teste") || !credencial.getSenha().equals("123"))
+            Usuario resultUsuario = new UsuarioDao()
+                .getUsuarioByEmail(credencial.getEmail());
+            
+            boolean isSenhaValid = HashingUtil
+                    .validateHashedPassword(credencial.getSenha(),
+                            resultUsuario.getSenha());
+            if (!isSenhaValid)
                 throw new Exception("Crendencias não válidas!");
         } catch (Exception e) {
             throw e;

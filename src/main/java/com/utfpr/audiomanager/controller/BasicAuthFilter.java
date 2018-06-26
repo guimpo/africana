@@ -49,7 +49,7 @@ public class BasicAuthFilter implements Filter {
             
             if (isSenhaValid) {
                 httpRequest.setAttribute("usuario", resultUsuario);
-                chain.doFilter(request,response);
+                chain.doFilter(httpRequest,httpResponse);
             }
         } else {
             response.setContentType("application/json;charset=UTF-8");

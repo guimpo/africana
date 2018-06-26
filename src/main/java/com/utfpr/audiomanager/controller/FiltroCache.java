@@ -5,10 +5,13 @@
  */
 package com.utfpr.audiomanager.controller;
 
+import com.utfpr.audiomanager.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import javax.ws.rs.HttpMethod;
+import org.apache.commons.io.IOUtils;
 import static org.hibernate.internal.util.io.StreamCopier.BUFFER_SIZE;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 import redis.clients.jedis.Jedis;
@@ -70,24 +74,22 @@ public class FiltroCache implements Filter {
         Jedis jedis = null;
         
         try {
+            jedis = pool.getResource();
             if (req.getMethod().compareTo(HttpMethod.GET) == 0) {
-                jedis = pool.getResource();
                 hashUrl = stringifyHttpGetRequest(req);
                 log("HTTP GET on [" + hashUrl + "]");
                 value = jedis.get(hashUrl);
-                log(value);
                 if (value == null) {
                     log("Cache miss! on hashUrl " + hashUrl);
                     chain.doFilter(request, respWrapper);
-                    byte[] buf = respWrapper.getContentAsByteArray();
-                    String payload = null;
-                    if (buf.length > 0) {
-                        payload = new String(buf, 0, buf.length, respWrapper.getCharacterEncoding());
-                    }
-                    String cachedValue = payload;
+                    String responseBody = IOUtils.toString(respWrapper.getContentInputStream(), UTF_8);
+                    String cachedValue = responseBody;
                     if (hashUrl != null && cachedValue != null) {                        
-                        log("Hashing url " + hashUrl + " VALUE: " + cachedValue);
+                        log("Hashing url " + hashUrl);
                         jedis.set(hashUrl, cachedValue);
+                        response.setContentType("application/json;charset=UTF-8");
+                        response.getOutputStream().print(cachedValue);
+                        response.getOutputStream().flush();
                     }
                 } else {
                     log("Cache hit!");
@@ -96,6 +98,11 @@ public class FiltroCache implements Filter {
                     response.getOutputStream().flush();
                 }
             } else {
+                String sessionId = req.getSession().getId();
+                Set<String> keys = jedis.keys(sessionId + req.getRequestURL() + "*");
+                for (String key : keys) {
+                    jedis.del(key);
+                }
                 chain.doFilter(request, response);
             }         
         } finally {
@@ -104,7 +111,9 @@ public class FiltroCache implements Filter {
     }
     
     private String stringifyHttpGetRequest(HttpServletRequest req) {
-        return req.getRequestURL() + requestParamsToString(req);
+        String sessionId = req.getSession().getId();
+        log("USUARIO: " + sessionId);
+        return sessionId + req.getRequestURL() + requestParamsToString(req);
     }
     
     private static String requestParamsToString(HttpServletRequest req) {
