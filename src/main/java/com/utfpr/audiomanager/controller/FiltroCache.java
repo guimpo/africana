@@ -159,7 +159,8 @@ public class FiltroCache implements Filter {
      * Init method for this filter
      */
     public void init(FilterConfig filterConfig) {
-        pool = new JedisPool(new JedisPoolConfig(), "localhost", 6379);
+        //pool = new JedisPool(new JedisPoolConfig(), "localhost", 6379);
+        pool = new JedisPool(new JedisPoolConfig(), "redis://h:p3f182493597711bed5539a0eec87e85a2acce6484f61ad38d6385a23213d0db3@ec2-54-236-162-33.compute-1.amazonaws.com", 15509);
         this.filterConfig = filterConfig;
         if (filterConfig != null) {
             if (debug) {                
