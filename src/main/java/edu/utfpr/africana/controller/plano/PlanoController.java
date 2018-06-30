@@ -24,7 +24,15 @@ public class PlanoController extends HttpServlet {
         user = (Usuario) request.getAttribute("user");
         response.setContentType("application/json;charset=UTF-8");
         
+        System.out.println((char)27 + "[33m" + "entrou no get plano");
+        
+        System.out.println((char)27 + "[33m" + user);
+        
         List<Plano> plans = new PlanoDao().getPlanosByUsuario(user);
+        plans.forEach((p) -> {
+            System.out.println((char)27 + "[33m" + p.getTema());
+        });
+                
         response.getWriter().println(new Gson().toJson(plans));
     }
 
