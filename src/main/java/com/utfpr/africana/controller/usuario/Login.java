@@ -1,10 +1,10 @@
-package com.utfpr.audiomanager.controller.usuario;
+package com.utfpr.africana.controller.usuario;
 
 import com.google.gson.Gson;
-import com.utfpr.audiomanager.dao.UsuarioDao;
-import com.utfpr.audiomanager.model.Usuario;
-import com.utfpr.audiomanager.util.ETagUtil;
-import com.utfpr.audiomanager.util.HashingUtil;
+import com.utfpr.africana.dao.UsuarioDao;
+import com.utfpr.africana.model.Usuario;
+import com.utfpr.africana.util.ETagUtil;
+import com.utfpr.africana.util.HashingUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.ServletException;

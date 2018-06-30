@@ -1,6 +1,5 @@
-package com.utfpr.audiomanager.util;
+package com.utfpr.africana.util;
 
-import com.utfpr.audiomanager.controller.Index;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,8 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.bind.DatatypeConverter;
@@ -26,7 +23,7 @@ public class ETagUtil {
             try {
                 throw new ServletException("File doesn't exists on server.");
             } catch (ServletException ex) {
-                Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
             }
         }
         
@@ -35,7 +32,7 @@ public class ETagUtil {
             byte[] sha1 = messageDigest.digest(Files.readAllBytes(path));
             return DatatypeConverter.printHexBinary(sha1);
         } catch (NoSuchAlgorithmException | IOException ex) {
-            Logger.getLogger(Index.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getMessage());
         }
         return "errado" + path.toString();
   }

@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.audiomanager.controller.usuario;
+package com.utfpr.africana.controller.usuario;
 
 import com.google.gson.Gson;
-import com.utfpr.audiomanager.dao.UsuarioDao;
-import com.utfpr.audiomanager.model.Credencial;
-import com.utfpr.audiomanager.model.Status;
-import com.utfpr.audiomanager.model.Usuario;
-import com.utfpr.audiomanager.util.AppUtil;
-import com.utfpr.audiomanager.util.HashingUtil;
+import com.utfpr.africana.dao.UsuarioDao;
+import com.utfpr.africana.model.Credencial;
+import com.utfpr.africana.model.Status;
+import com.utfpr.africana.model.Usuario;
+import com.utfpr.africana.util.AppUtil;
+import com.utfpr.africana.util.HashingUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;

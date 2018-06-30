@@ -1,8 +1,8 @@
-package com.utfpr.audiomanager.controller.usuario;
+package com.utfpr.africana.controller.usuario;
 
-import com.utfpr.audiomanager.dao.UsuarioDao;
-import com.utfpr.audiomanager.model.Usuario;
-import com.utfpr.audiomanager.util.ETagUtil;
+import com.utfpr.africana.dao.UsuarioDao;
+import com.utfpr.africana.model.Usuario;
+import com.utfpr.africana.util.ETagUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

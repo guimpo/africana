@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.audiomanager.controller;
+package com.utfpr.africana.controller;
 
 import com.google.gson.Gson;
-import com.utfpr.audiomanager.controller.usuario.SessaoController;
-import com.utfpr.audiomanager.dao.UsuarioDao;
-import com.utfpr.audiomanager.model.Usuario;
+import com.utfpr.africana.controller.usuario.SessaoController;
+import com.utfpr.africana.dao.UsuarioDao;
+import com.utfpr.africana.model.Usuario;
 import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.io.PrintStream;

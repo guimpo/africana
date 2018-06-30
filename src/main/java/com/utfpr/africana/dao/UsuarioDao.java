@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.audiomanager.dao;
+package com.utfpr.africana.dao;
 
-import com.utfpr.audiomanager.model.Usuario;
+import com.utfpr.africana.model.Usuario;
 
 /**
  *
