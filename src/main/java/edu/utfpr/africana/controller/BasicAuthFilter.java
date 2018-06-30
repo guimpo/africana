@@ -1,15 +1,10 @@
-
 package edu.utfpr.africana.controller;
 
-import com.google.gson.Gson;
 import edu.utfpr.africana.dao.UsuarioDao;
 import edu.utfpr.africana.model.Usuario;
 import edu.utfpr.africana.util.HashingUtil;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Base64;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -29,7 +24,7 @@ public class BasicAuthFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-            FilterChain chain) throws IOException, ServletException {
+        FilterChain chain) throws IOException, ServletException {
         
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -52,12 +47,10 @@ public class BasicAuthFilter implements Filter {
                 chain.doFilter(httpRequest,httpResponse);
             }
         } else {
-            response.setContentType("application/json;charset=UTF-8");
             httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         }  
     }
 
     @Override
     public void destroy() { }
-    
 }
