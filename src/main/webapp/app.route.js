@@ -1,6 +1,10 @@
 app.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/login', {
-    templateUrl: './components/loginView.html',
+  $routeProvider
+  .when('/', {
+    templateUrl: './components/home/home.html'
+  })      
+  .when('/login', {
+    templateUrl: './components/login/loginView.html',
     controller: 'loginController'
   })
   .when('/usuario', {
@@ -16,7 +20,7 @@ app.config(['$routeProvider', function($routeProvider) {
     controller: 'planoCadastroController'
   })
   .when('/plano/lista', {
-    templateUrl: 'template/listaPlano.html',
+    templateUrl: 'components/plano/listaPlanoView.html',
     controller: 'planoController'
   })
   .otherwise({redirectTo: '/'});
