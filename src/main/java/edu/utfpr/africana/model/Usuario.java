@@ -109,7 +109,10 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "com.utfpr.audiomanager.model.Usuario[ id=" + id + " ]";
+        return "id = " + this.id + "\n" +
+            "nome = " + this.nome + "\n" +
+            "email = " + this.email + "\n" +
+            "senha = " + this.senha + "\n";
     }
     
 }
