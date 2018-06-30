@@ -1,12 +1,6 @@
-var app = angular.module('africana', ['ngRoute']);
-
-app.config(['$locationProvider', function($locationProvider) {
-  $locationProvider.hashPrefix('');
-}]);
-
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {
-    templateUrl: './template/login.html',
+    templateUrl: './components/loginView.html',
     controller: 'loginController'
   })
   .when('/usuario', {
