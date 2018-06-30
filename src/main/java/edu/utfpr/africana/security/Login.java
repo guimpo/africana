@@ -1,4 +1,4 @@
-package edu.utfpr.africana.controller.usuario;
+package edu.utfpr.africana.security;
 
 import com.google.gson.Gson;
 import edu.utfpr.africana.dao.UsuarioDao;
