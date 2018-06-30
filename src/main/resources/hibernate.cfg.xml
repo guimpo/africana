@@ -52,7 +52,6 @@ Contributor(s):
     <property name="hibernate.c3p0.idle_test_period">3000</property>
     
     <mapping class="edu.utfpr.africana.model.Usuario"/>
-    <mapping class="edu.utfpr.africana.model.Audio"/>
     <mapping class="edu.utfpr.africana.model.Plano"/>
   </session-factory>
 </hibernate-configuration>
