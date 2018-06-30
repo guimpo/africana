@@ -1,9 +1,9 @@
-package edu.utfpr.africana.controller;
+package edu.utfpr.africana.security;
 
 import edu.utfpr.africana.dao.UsuarioDao;
 import edu.utfpr.africana.model.Usuario;
-import edu.utfpr.africana.util.HashingUtil;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,11 +12,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "BasicAuthFilter",
-        urlPatterns = {"/api/audio2/*"})
+@WebFilter(filterName = "BasicAuthFilter", urlPatterns = {"/api/plano/*"})
 public class BasicAuthFilter implements Filter {
 
     @Override
@@ -29,26 +29,25 @@ public class BasicAuthFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
         
-        String header = httpRequest.getHeader("Authorization");
-        if(header.contains("Basic")) {
-            String basicAuthEncoded = header.substring(6);
-            String basicAuthAsString = new String(Base64.getDecoder()
-                    .decode(basicAuthEncoded.getBytes()));
-            
-            Usuario resultUsuario = new UsuarioDao()
-                .getUsuarioByEmail(basicAuthAsString.split(":")[0]);
-            
-            boolean isSenhaValid = HashingUtil
-                    .validateHashedPassword(basicAuthAsString.split(":")[1],
-                            resultUsuario.getSenha());
-            
-            if (isSenhaValid) {
-                httpRequest.setAttribute("usuario", resultUsuario);
-                chain.doFilter(httpRequest,httpResponse);
+        Cookie[] cookies = httpRequest.getCookies();
+        String cookieName = "credentials";
+        String cookieValue = "";
+        
+        for(Cookie c : cookies) {
+            if(cookieName.equals(c.getName())) {
+                cookieValue = c.getValue();
             }
+        }
+        
+        if(cookieValue.isEmpty()) {
+            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            chain.doFilter(httpRequest,httpResponse);
         } else {
-            httpResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        }  
+            String basicAuthString = Arrays.toString(Base64.getDecoder().decode(cookieValue));
+            Usuario user = new UsuarioDao().getUsuarioByEmail(basicAuthString.split(":")[0]);
+            httpRequest.setAttribute("user", user);
+            chain.doFilter(httpRequest,httpResponse);
+        }
     }
 
     @Override
