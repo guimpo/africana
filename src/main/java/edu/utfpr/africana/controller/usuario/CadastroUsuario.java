@@ -2,7 +2,7 @@ package edu.utfpr.africana.controller.usuario;
 
 import edu.utfpr.africana.dao.UsuarioDao;
 import edu.utfpr.africana.model.Usuario;
-import eduutfpr.africana.util.ETagUtil;
+import edu.utfpr.africana.util.ETagUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

@@ -5,7 +5,7 @@
  */
 package edu.utfpr.africana.model;
 
-import eduutfpr.africana.util.HashingUtil;
+import edu.utfpr.africana.util.HashingUtil;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;

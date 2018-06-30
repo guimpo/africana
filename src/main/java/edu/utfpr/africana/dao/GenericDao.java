@@ -5,7 +5,7 @@
  */
 package edu.utfpr.africana.dao;
 
-import eduutfpr.africana.util.HibernateUtil;
+import edu.utfpr.africana.util.HibernateUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.inject.Inject;

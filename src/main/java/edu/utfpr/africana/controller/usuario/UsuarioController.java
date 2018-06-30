@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import edu.utfpr.africana.dao.UsuarioDao;
 import edu.utfpr.africana.model.Status;
 import edu.utfpr.africana.model.Usuario;
-import eduutfpr.africana.util.AppUtil;
+import edu.utfpr.africana.util.AppUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
