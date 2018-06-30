@@ -21,6 +21,8 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        System.out.println((char)27 + "[33m" + "login");
+        
         response.setContentType("application/json;charset=UTF-8");
         
         BufferedReader reader = request.getReader();
@@ -35,8 +37,6 @@ public class Login extends HttpServlet {
             response.getWriter().println(new Gson().toJson(new Exception("Usuário ou senha inválido.")));
         }
         
-        System.out.println((char)27 + "[33m" + "passou do if usuario null");
-        
         boolean isValidPw = 
             HashingUtil.validateHashedPassword(userReceived.getSenha(),
             userStored.getSenha());
@@ -44,7 +44,7 @@ public class Login extends HttpServlet {
         if (isValidPw) {
             String tokenString = userReceived.getEmail() + ":" + userReceived.getSenha();
             tokenString = Base64.getEncoder().encodeToString(tokenString.getBytes());
-            Cookie c = new Cookie("credentias", tokenString);
+            Cookie c = new Cookie("credentials", tokenString);
             c.setMaxAge(-1);
             c.setPath("/");
             response.addCookie(c);            
