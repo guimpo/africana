@@ -1,28 +1,38 @@
 package edu.utfpr.africana.controller.plano;
 
+import com.google.gson.Gson;
 import edu.utfpr.africana.dao.PlanoDao;
-import edu.utfpr.africana.dao.UsuarioDao;
 import edu.utfpr.africana.model.Plano;
 import edu.utfpr.africana.model.Usuario;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PlanoController", urlPatterns = {"/plano/cadastro"})
+@WebServlet(name = "PlanoController", urlPatterns = {"/api/plano"})
 public class PlanoController extends HttpServlet {
 
+    private Usuario user = null;
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        user = (Usuario) request.getAttribute("user");
+        response.setContentType("application/json;charset=UTF-8");
+        
+        List<Plano> plans = new PlanoDao().getPlanosByUsuario(user);
+        response.getWriter().println(new Gson().toJson(plans));
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {         
+            throws ServletException, IOException {
+        
+        user = (Usuario) request.getAttribute("user");
       
         String componenteCurricular = (String) request.getParameter("componenteCurricular");
         String tema = (String) request.getParameter("tema");
@@ -31,24 +41,7 @@ public class PlanoController extends HttpServlet {
         String conhecimentosPrevios = (String) request.getParameter("conhecimentosPrevios");
         String recursos = (String) request.getParameter("recursos");
         String descricao = (String) request.getParameter("descricao");
-        String avaliacao = (String) request.getParameter("avaliacao");
-
-//        Cookie[] cookies = request. getCookies();
-//        String cookieName = "email";
-//        String cookieValue = "";
-//        
-//        for(Cookie c : cookies) {
-//            if(cookieName.equals(c.getName())) {
-//                cookieValue = c.getValue();
-//            }
-//        }
-       
-//        Usuario u = new UsuarioDao().getUsuarioByEmail(cookieValue);
-//        if(u == null) {
-//            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-//            return;
-//        }
-        Usuario u = new UsuarioDao().encontrar(150L);
+        String avaliacao = (String) request.getParameter("avaliacao");     
         
         try {
             Plano p = new Plano();
@@ -60,7 +53,7 @@ public class PlanoController extends HttpServlet {
             p.setRecursos(recursos);
             p.setDescricao(descricao);
             p.setAvaliacao(avaliacao);
-            p.setUsuario(u);
+            p.setUsuario(user);
             
             new PlanoDao().salvar(p);
             response.setStatus(HttpServletResponse.SC_CREATED);
