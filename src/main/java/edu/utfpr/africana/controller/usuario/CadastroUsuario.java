@@ -1,8 +1,8 @@
-package com.utfpr.africana.controller.usuario;
+package edu.utfpr.africana.controller.usuario;
 
-import com.utfpr.africana.dao.UsuarioDao;
-import com.utfpr.africana.model.Usuario;
-import com.utfpr.africana.util.ETagUtil;
+import edu.utfpr.africana.dao.UsuarioDao;
+import edu.utfpr.africana.model.Usuario;
+import eduutfpr.africana.util.ETagUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

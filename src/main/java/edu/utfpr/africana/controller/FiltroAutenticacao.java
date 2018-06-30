@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.africana.controller;
+package edu.utfpr.africana.controller;
 
 import com.google.gson.Gson;
-import com.utfpr.africana.controller.usuario.SessaoController;
-import com.utfpr.africana.dao.UsuarioDao;
-import com.utfpr.africana.model.Usuario;
+import edu.utfpr.africana.controller.usuario.SessaoController;
+import edu.utfpr.africana.dao.UsuarioDao;
+import edu.utfpr.africana.model.Usuario;
 import io.jsonwebtoken.Claims;
 import java.io.IOException;
 import java.io.PrintStream;

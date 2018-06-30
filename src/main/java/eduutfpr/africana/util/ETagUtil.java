@@ -1,4 +1,4 @@
-package com.utfpr.africana.util;
+package eduutfpr.africana.util;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.utfpr.africana.controller.usuario;
+package edu.utfpr.africana.controller.usuario;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

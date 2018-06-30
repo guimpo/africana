@@ -38,11 +38,12 @@ Contributor(s):
   <session-factory>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
     <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/audiomanager</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/africa</property>
     <property name="hibernate.connection.username">postgres</property>
     <property name="hibernate.connection.password">postgres</property> 
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
     
     <!-- Connection pool-->
     <property name="hibernate.c3p0.max_size">15</property>
@@ -50,7 +51,8 @@ Contributor(s):
     <property name="hibernate.c3p0.max_statements">50</property>
     <property name="hibernate.c3p0.idle_test_period">3000</property>
     
-    <mapping class="com.utfpr.audiomanager.model.Usuario"/>
-    <mapping class="com.utfpr.audiomanager.model.Audio"/>
+    <mapping class="edu.utfpr.africana.model.Usuario"/>
+    <mapping class="edu.utfpr.africana.model.Audio"/>
+    <mapping class="edu.utfpr.africana.model.Plano"/>
   </session-factory>
 </hibernate-configuration>

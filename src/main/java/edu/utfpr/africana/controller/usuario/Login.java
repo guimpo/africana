@@ -1,10 +1,10 @@
-package com.utfpr.africana.controller.usuario;
+package edu.utfpr.africana.controller.usuario;
 
 import com.google.gson.Gson;
-import com.utfpr.africana.dao.UsuarioDao;
-import com.utfpr.africana.model.Usuario;
-import com.utfpr.africana.util.ETagUtil;
-import com.utfpr.africana.util.HashingUtil;
+import edu.utfpr.africana.dao.UsuarioDao;
+import edu.utfpr.africana.model.Usuario;
+import eduutfpr.africana.util.ETagUtil;
+import eduutfpr.africana.util.HashingUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import javax.servlet.ServletException;

@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.africana.controller.usuario;
+package edu.utfpr.africana.controller.usuario;
 
 import com.google.gson.Gson;
-import com.utfpr.africana.dao.UsuarioDao;
-import com.utfpr.africana.model.Status;
-import com.utfpr.africana.model.Usuario;
-import com.utfpr.africana.util.AppUtil;
+import edu.utfpr.africana.dao.UsuarioDao;
+import edu.utfpr.africana.model.Status;
+import edu.utfpr.africana.model.Usuario;
+import eduutfpr.africana.util.AppUtil;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;

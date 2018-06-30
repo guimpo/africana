@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.utfpr.africana.dao;
+package edu.utfpr.africana.dao;
 
-import com.utfpr.africana.model.Usuario;
+import edu.utfpr.africana.model.Usuario;
 
 /**
  *
