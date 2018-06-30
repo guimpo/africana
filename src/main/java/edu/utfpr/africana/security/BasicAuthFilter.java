@@ -16,7 +16,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "BasicAuthFilter", urlPatterns = {"/api/plano/*"})
+@WebFilter(filterName = "BasicAuthFilter", urlPatterns = {"/api/plano", "/api/plano/*"})
 public class BasicAuthFilter implements Filter {
 
     @Override
@@ -26,12 +26,21 @@ public class BasicAuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
         FilterChain chain) throws IOException, ServletException {
         
+        System.out.println((char)27 + "[33m" + "basicAuthFilter");
+        
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
-        
+             
         Cookie[] cookies = httpRequest.getCookies();
         String cookieName = "credentials";
         String cookieValue = "";
+        
+        if(cookies == null) {
+            System.out.println((char)27 + "[33m" + "cookie null");
+            httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            chain.doFilter(httpRequest,httpResponse);
+            return;
+        }
         
         for(Cookie c : cookies) {
             if(cookieName.equals(c.getName())) {
@@ -39,11 +48,13 @@ public class BasicAuthFilter implements Filter {
             }
         }
         
-        if(cookieValue.isEmpty()) {
+        if(cookieValue.equalsIgnoreCase("")) {
+            System.out.println((char)27 + "[33m" + "cookieValue empty");
             httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             chain.doFilter(httpRequest,httpResponse);
         } else {
-            String basicAuthString = Arrays.toString(Base64.getDecoder().decode(cookieValue));
+            String basicAuthString = new String(Base64.getDecoder().decode(cookieValue));
+            System.out.println((char)27 + "[33m" + basicAuthString);
             Usuario user = new UsuarioDao().getUsuarioByEmail(basicAuthString.split(":")[0]);
             httpRequest.setAttribute("user", user);
             chain.doFilter(httpRequest,httpResponse);
