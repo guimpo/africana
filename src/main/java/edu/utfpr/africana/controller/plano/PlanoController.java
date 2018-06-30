@@ -5,10 +5,8 @@ import edu.utfpr.africana.dao.UsuarioDao;
 import edu.utfpr.africana.model.Plano;
 import edu.utfpr.africana.model.Usuario;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,11 +18,6 @@ public class PlanoController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
-        
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/view/plano/cadastroPlano.jsp")
-                .forward(request, response);
     }
 
     @Override
@@ -35,7 +28,7 @@ public class PlanoController extends HttpServlet {
         String tema = (String) request.getParameter("tema");
         String objetivos = (String) request.getParameter("objetivos");
         String duracao = (String) request.getParameter("duracao");
-            String conhecimentosPrevios = (String) request.getParameter("conhecimentosPrevios");
+        String conhecimentosPrevios = (String) request.getParameter("conhecimentosPrevios");
         String recursos = (String) request.getParameter("recursos");
         String descricao = (String) request.getParameter("descricao");
         String avaliacao = (String) request.getParameter("avaliacao");

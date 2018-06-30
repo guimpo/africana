@@ -21,7 +21,7 @@ public class PlanoListaController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         
 //        Usuario usuario = (Usuario) request.getAttribute("usuario");
         Usuario u = new UsuarioDao().encontrar(150L);
