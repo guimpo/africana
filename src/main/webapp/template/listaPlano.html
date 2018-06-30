@@ -1,0 +1,31 @@
+<div class="hero-body">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <p class="card-header-title">Planos</p>
+      </div>
+    </div>
+    <div class="card-table">
+      <div class="content">
+        <table id="tabela" class="table is-stripped">
+          <thead>
+          <th>
+            Tema
+          </th>
+          <th>
+            Duração
+          </th>
+          <th>Visualizar</th>
+          </thead>
+          <tbody ng-repeat="p in planoLista">
+            <tr>
+              <td>{{p.tema}}</td>
+              <td>{{p.duracao}}</td>
+              <td><button ng-click="editar({{p.id}})">Ver</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

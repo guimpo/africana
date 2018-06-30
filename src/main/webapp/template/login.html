@@ -1,0 +1,29 @@
+<div class="hero-body">
+  <div class="container has-text-centered">
+    <div class="column is-4 is-offset-4">
+      <h3 class="title has-text-white">Login</h3>
+      <p class="subtitle has-text-white">Por favor, digite seu usário e senha.</p>
+      <div class="box">  
+        <form ng-submit="login()"
+              name="loginForm">
+          <div class="field">
+            <div class="control">
+              Email
+              <input ng-model="usuario.email" id="email" class="input is-large" 
+                   type="email" placeholder="Email" autofocus="" name="email">
+            </div>
+          </div>
+          <div class="field">
+            <div class="control">
+              Senha
+              <input ng-model="usuario.senha" id="senha" class="input is-large"
+                     type="password" placeholder="Senha" name="senha">
+            </div>
+          </div>
+          <button type="submit"
+                  class="button is-block is-info is-large is-fullwidth">
+            Acessar</button>
+      </form>
+    </div>
+  </div>
+</div>
