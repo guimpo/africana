@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "Login", urlPatterns = {"/login"})
+@WebServlet(name = "Login", urlPatterns = {"/api/login"})
 public class Login extends HttpServlet {
 
     @Override
