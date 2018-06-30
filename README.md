@@ -1,7 +1,4 @@
-# AudioManager
-
-## Endereço Produção
-  https://thawing-shelf-72755.herokuapp.com/
+# Projeto para disciplina de Cultura Africana
 
 ## Endereço Teste
   https://serene-springs-75930.herokuapp.com/
@@ -13,4 +10,5 @@
 ## Tecnologias Utilizadas
  - Java Servlets e JSPs
  - Postgresql
- - Hibernate 4.3
+ - Hibernate
+ - AngularJs
