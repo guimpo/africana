@@ -1,7 +1,7 @@
 # Projeto para disciplina de Cultura Africana
 
 ## Endereço Teste
-  https://serene-springs-75930.herokuapp.com/
+  https://africana2018.herokuapp.com/
   
 ## Contribuidores
  - José Victor - [josevictorferreira](http://github.com/josevictorferreira/)
