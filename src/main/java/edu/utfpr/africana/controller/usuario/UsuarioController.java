@@ -7,7 +7,6 @@ package edu.utfpr.africana.controller.usuario;
 
 import com.google.gson.Gson;
 import edu.utfpr.africana.dao.UsuarioDao;
-import edu.utfpr.africana.model.Status;
 import edu.utfpr.africana.model.Usuario;
 import edu.utfpr.africana.util.AppUtil;
 import java.io.IOException;
@@ -54,10 +53,10 @@ public class UsuarioController extends HttpServlet {
             response.getOutputStream().print(gson.toJson(u));
             response.getOutputStream().flush();
         } catch(Exception e) {
-            Status status = new Status();
-            status.setSucesso(false);
-            status.setDescription(e.getMessage());
-            response.getOutputStream().print(gson.toJson(status));
+//            Status status = new Status();
+//            status.setSucesso(false);
+//            status.setDescription(e.getMessage());
+//            response.getOutputStream().print(gson.toJson(status));
             response.getOutputStream().flush();
         }        
     }

@@ -1,35 +1,37 @@
     <div class="hero-body">
     <div class="container has-text-centered">
       <div class="column">
-        <div ng-controller="planoCadastroController" class="box">
-          <form ng-submit="cadastroPlano()">
+        <div ng-controller="planoController" class="box">
+          <form ng-submit="editar(dto)">
             <div class="field">
               <div class="control">
                 Componente Curricular
                 <input
-                  ng-model="componenteCurricular"class="input is-large" 
+                  ng-model="dto.componenteCurricular"
+                  class="input is-large" 
                   type="text"
                   placeholder="Componente Curricular"
                   autofocus="" name="componenteCurricular"
-                  value="">
+                  >
               </div>
             </div>
             <div class="field">
               <div class="control">
                 Tema
                 <input
-                  ng-model="tema"
+                  ng-model="dto.tema"
                   class="input is-large"
                   type="text"
                   placeholder="Tema"
                   name="tema"
-                  value=""/>
+                  >
               </div>
             </div>
             <div class="field">
               <div class="control">
                 Objetivos
-                <textarea ng-model="objetivos"
+                <textarea
+                  ng-model="dto.objetivos"
                   class="textarea"
                   placeholder="Objetivos"
                   name="objetivos"></textarea>
@@ -39,31 +41,31 @@
               <div class="control">
                 Duração
                 <input 
-                  ng-model="duracao"
+                  ng-model="dto.duracao"
                   class="input is-large"
                   type="number"
                   placeholder="Duração em aulas"
                   name="duracao"
-                  value=""/>
+                  >
               </div>
             </div>
             <div class="field">
               <div class="control">
                 Conhecimentos Prévios
-                <input 
-                  ng-model="conhecimentosPrevios"
+                <input
+                  ng-model="dto.conhecimentosPrevios"
                   class="input is-large"
                   type="text"
                   placeholder="Conhecimentos Prévios"
                   name="conhecimentosPrevios"
-                  value="">
+                  >
               </div>
             </div>
             <div class="field">
               <div class="control">
                 Recursos
                 <textarea
-                  ng-model="recursos"
+                  ng-model="dto.recursos"
                   class="textarea"
                   placeholder="Recursos"
                   name="recursos"></textarea>
@@ -73,7 +75,7 @@
               <div class="control">
                 Descrição
                 <textarea
-                  ng-model="descricao"
+                  ng-model="dto.descricao"
                   class="textarea"
                   placeholder="Descrição"
                   name="descricao"></textarea>
@@ -83,7 +85,7 @@
               <div class="control">
                 Avaliação
                 <textarea
-                  ng-model="avaliacao"
+                  ng-model="dto.avaliacao"
                   class="textarea"
                   placeholder="Avaliação"
                   name="avaliacao"></textarea>

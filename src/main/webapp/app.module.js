@@ -1,4 +1,6 @@
-var app = angular.module('africana', ['ngRoute', 'ngCookies', 'ngResource']);
+var app = angular.module('africana', [
+  'ngRoute'
+]);
 
 app.config(['$locationProvider', function($locationProvider) {
   $locationProvider.hashPrefix('');

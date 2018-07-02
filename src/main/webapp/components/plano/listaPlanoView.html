@@ -1,4 +1,4 @@
-<div class="hero-body">
+<div ng-controller="planoController" class="hero-body">
   <div class="container">
     <div class="card">
       <div class="card-header">
@@ -21,7 +21,7 @@
             <tr>
               <td>{{p.tema}}</td>
               <td>{{p.duracao}}</td>
-              <td><button>Ver</button></td>
+              <td><button ng-click="ver(p)">Alterar/Ver</button></td>
             </tr>
           </tbody>
         </table>

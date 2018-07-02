@@ -154,7 +154,10 @@ public class Plano implements Serializable {
 
     @Override
     public String toString() {
-        return "edu.utfpr.africana.model.Plano[ id=" + id + " ]";
+        return "id = " + this.id + "\n" +
+            "tema = " + this.tema + "\n" +
+            "duracao = " + this.duracao + "\n" +
+            "componenteCurricular = " + this.componenteCurricular + "\n";
     }
     
 }

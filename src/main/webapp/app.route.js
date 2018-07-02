@@ -11,9 +11,13 @@ app.config(['$routeProvider', function($routeProvider) {
     templateUrl: 'template/cadastroUsuario.html',
     controller: 'usuarioController'
   })
+  .when('/plano/edicao', {
+    templateUrl: 'components/plano/formPlanoView.html',
+    controller: 'planoController'
+  })
   .when('/plano/cadastro', {
-    templateUrl: 'template/cadastroPlano.html',
-    controller: 'planoCadastroController'
+    templateUrl: 'components/plano/formPlanoView.html',
+    controller: 'planoController'
   })
   .when('/plano/lista', {
     templateUrl: 'components/plano/listaPlanoView.html',
