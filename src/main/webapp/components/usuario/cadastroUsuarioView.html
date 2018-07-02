@@ -3,23 +3,23 @@
     <div class="column is-4 is-offset-4">
       <h3 class="title has-text-white">Cadastro</h3>
       <div class="box">       
-        <form action="cadastro" method="POST">
+        <form ng-submit="cadastrar()">
           <div class="field">
             <div class="control">
               Nome
-              <input class="input is-large" type="text" placeholder="Nome" autofocus="" name="nome">
+              <input ng-model="usuario.nome"class="input is-large" type="text" placeholder="Nome" autofocus="" name="nome">
             </div>
           </div>
           <div class="field">
             <div class="control">
               Email
-              <input class="input is-large" type="email" placeholder="Email" autofocus="" name="email">
+              <input ng-model="usuario.email" class="input is-large" type="email" placeholder="Email" autofocus="" name="email">
             </div>
           </div>
           <div class="field">
             <div class="control">
               Senha
-              <input class="input is-large" type="password" placeholder="Senha" name="senha">
+              <input ng-model="usuario.senha" class="input is-large" type="password" placeholder="Senha" name="senha">
             </div>
           </div>
           <button class="button is-block is-info is-large is-fullwidth">Cadastrar</button>

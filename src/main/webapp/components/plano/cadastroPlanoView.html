@@ -1,0 +1,102 @@
+    <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column">
+        <div ng-controller="planoController" class="box">
+          <form ng-submit="cadastrar(cad)">
+            <div class="field">
+              <div class="control">
+                Componente Curricular
+                <input
+                  ng-model="cad.componenteCurricular"
+                  class="input is-large" 
+                  type="text"
+                  placeholder="Componente Curricular"
+                  autofocus="" name="componenteCurricular"
+                  >
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Tema
+                <input
+                  ng-model="cad.tema"
+                  class="input is-large"
+                  type="text"
+                  placeholder="Tema"
+                  name="tema"
+                  >
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Objetivos
+                <textarea
+                  ng-model="cad.objetivos"
+                  class="textarea"
+                  placeholder="Objetivos"
+                  name="objetivos"></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Duração
+                <input 
+                  ng-model="cad.duracao"
+                  class="input is-large"
+                  type="number"
+                  placeholder="Duração em aulas"
+                  name="duracao"
+                  >
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Conhecimentos Prévios
+                <input
+                  ng-model="cad.conhecimentosPrevios"
+                  class="input is-large"
+                  type="text"
+                  placeholder="Conhecimentos Prévios"
+                  name="conhecimentosPrevios"
+                  >
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Recursos
+                <textarea
+                  ng-model="cad.recursos"
+                  class="textarea"
+                  placeholder="Recursos"
+                  name="recursos"></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Descrição
+                <textarea
+                  ng-model="cad.descricao"
+                  class="textarea"
+                  placeholder="Descrição"
+                  name="descricao"></textarea>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                Avaliação
+                <textarea
+                  ng-model="cad.avaliacao"
+                  class="textarea"
+                  placeholder="Avaliação"
+                  name="avaliacao"></textarea>
+              </div>
+            </div>
+            <button type="submit"
+              class="button is-block is-info is-large is-fullwidth">
+              Salvar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

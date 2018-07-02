@@ -41,4 +41,18 @@ app.controller('planoController', ['$scope', '$http', '$location', '$log', 'plan
               $log.log(err);
             });
     };
+    
+    self.cadastrar = function(plano) {
+      $log.info('plano post');
+      $log.info(plano);
+      $http.post(url, plano)
+        .then(
+          function(response) {
+            $log.log('cadastrou');
+            $log.log(response);
+            $location.path('/plano/lista');
+          }, function(err) {
+              $log.log(err);
+            });
+    };
 }]);

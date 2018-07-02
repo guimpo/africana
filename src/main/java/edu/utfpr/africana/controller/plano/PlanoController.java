@@ -7,6 +7,8 @@ import edu.utfpr.africana.model.Usuario;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +44,26 @@ public class PlanoController extends HttpServlet {
             throws ServletException, IOException {
         
         user = (Usuario) request.getAttribute("user");
+        
+        response.setContentType("application/json;charset=UTF-8");
+        
+        System.out.println((char)27 + "[33m" + "entrou no post plano");
+        
+        System.out.println((char)27 + "[33m" + user);
+        
+        BufferedReader reader = request.getReader();
+        Plano receivedPlan = new Gson().fromJson(reader, Plano.class);
+        
+        System.out.println((char)27 + "[33m" + receivedPlan);
+        
+        try {
+            receivedPlan.setUsuario(user);
+        } catch (Exception ex) {
+            Logger.getLogger(PlanoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        new PlanoDao().salvar(receivedPlan);
+        response.setStatus(HttpServletResponse.SC_CREATED);
       
 //        String componenteCurricular = (String) request.getParameter("componenteCurricular");
 //        String tema = (String) request.getParameter("tema");
